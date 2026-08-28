@@ -69,6 +69,7 @@ abstract class BaseController extends Controller
             'keywords' => $this->keywords,
             'menus' => $this->loadMenu(),
             'current_menu' => $this->current_menu,
+            'user' => $this
         ];
 
         return view('template/head', $headData)
