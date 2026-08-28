@@ -1,5 +1,7 @@
+            </div>
+        </div>
+    </div>
 </div>
-</body>
 <footer>
 <?php if(isset($messages)) : ?>
     <script type="text/javascript">
@@ -26,6 +28,7 @@
         })
     </script>
 </footer>
+</body>
 </html>
 
 <?php endif; ?>

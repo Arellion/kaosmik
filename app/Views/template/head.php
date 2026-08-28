@@ -25,7 +25,9 @@
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous">
     </script>
-
+    <!-- THEME TABLER -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
     <!-- FONTAWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -45,8 +47,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.27.3/dist/bootstrap-table.min.js"></script>
 
 </head>
-<?php if (isset($menus)): ?>
-    <?= view('template/menu'); ?>
-<?php endif;?>
 <body>
-<div class="container">
+<div class="page">
+<?php if (isset($menus)): ?>
+    <?= view('template/'.$layout.'/menu'); ?>
+<?php endif;?>
+<div class="page-wrapper" >
+    <div class="page-body" >
+        <div class="container" >
