@@ -5,12 +5,10 @@
         </div>
     </div>
 </div>
-
-<?php $form_action = 'admin/user/';
-    if (isset($user)) {
-    $form_action .= 'update';
+<?php if (isset($user)) {
+    $form_action = 'admin/user/update';
     }else {
-    $form_action .= 'create';
+    $form_action = 'admin/user/create';
     }; ?>
 <?= form_open_multipart($form_action) ?>
 <div class="row g-3">
@@ -29,31 +27,19 @@
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-lock"></i>
                     </span>
-                    <input type="text" value="" name="secret2" class="form-control" placeholder="Mot de passe"
+                    <input type="text" value="" name="password" class="form-control" placeholder="Mot de passe"
                            title="Mot de passe">
                 </div>
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-envelope"></i>
                     </span>
-                    <input type="text" value="<?= isset($user) ? esc($user->email) : '' ?>" name="secret"
+                    <input type="text" value="<?= isset($user) ? esc($user->email) : '' ?>" name="password"
                            title="Mail" class="form-control" placeholder="Mail" <?= isset ($user) ? "disabled" : "" ?>>
                 </div>
                 <label class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" name="active" <?php
-                    if(isset($user)){
-                        if($active = 1)
-                            {echo "checked";}
-                    } ?>>
+                    <input class="form-check-input" type="checkbox" name="active">
                     <span class="form-check-label">Actif</span>
-                </label>
-                <label class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" name="admin" value="1" <?php
-                    if(isset($user)){
-                        if($user->ingroup('admin'))
-                        {echo "checked";}
-                    } ?>>
-                    <span class="form-check-label">Permission d'administrateur</span>
                 </label>
 
             </div>
@@ -70,7 +56,7 @@
                             <div class="col-md-6">
                                 <div class="d-flex align-items-center h-100">
                                     Niveau : <span
-                                            class="badge rounded-pill text-bg-info ms-3"><?= isset($user) ? $user->getPlayer()->level : "" ?> </span>
+                                            class="badge rounded-pill text-bg-info ms-3"><?= $user->getPlayer()->level; ?> </span>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -79,7 +65,7 @@
                                         <i class="fa-solid fa-x fa-xs"></i>
                                         <i class="fa-solid fa-p fa-xs"></i>
                                     </span>
-                                    <input class="form-control" value="<?=isset($user) ? $user->getPlayer()->experience : "" ?>"
+                                    <input class="form-control" value="<?= $user->getPlayer()->experience; ?>"
                                            name="experience" placeholder="Experience" title="Experience">
                                 </div>
                             </div>
@@ -114,7 +100,6 @@
     <div class="col-md-3">
         <div class="card h-100">
             <div class="card-body">
-                <?php if(isset ($user)) : ?>
                 <div class="d-flex justify-content-between mb-1">
                     <div>
                         Créer le :
@@ -131,12 +116,11 @@
                         <i class="fa-solid fa-clock me-1"></i> <?=format_date_fr($user->updated_at); ?>
                     </div>
                 </div>
-                <?php endif; ?>
                 <div class="d-grid">
                     <?php if(isset($user)) :
                         echo form_hidden('id', (string) $user->id);
                     endif;?>
-                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk me-2"></i><?= isset($user) ? 'Sauvegarder' : 'Créer' ?></button>
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk me-2"></i>Sauvegarder</button>
                 </div>
             </div>
         </div>

@@ -4,11 +4,5 @@
     "url" : "/admin/user",
     "icon" : "<i class=\"fa-solid fa-users\"></i>",
     "class": ""
-  },
-  "Courbe d'experience" : {
-    "title" : "Courbe d'experience",
-    "url" : "/admin/threshold",
-    "icon" : "<i class=\"fa-regular fa-circle-up\"></i>",
-    "class": ""
   }
 }
