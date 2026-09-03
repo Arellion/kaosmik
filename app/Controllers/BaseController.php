@@ -70,7 +70,7 @@ abstract class BaseController extends Controller
             'keywords' => $this->keywords,
             'menus' => $this->loadMenu(),
             'current_menu' => $this->current_menu,
-            'logged_user' => auth()->user(),
+            'user' => auth()->user(),
             'layout' => $this->layout,
         ];
 
