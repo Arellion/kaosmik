@@ -21,6 +21,12 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'gr
         $routes->get('edit/(:num)', 'UserController::edit/$1');
         $routes->post('update', 'UserController::update');
         $routes->post('create', 'UserController::create');
-
+        $routes->get('new', 'UserController::new');
+    });
+    $routes->group('threshold', function ($routes) {
+        $routes->get('/', 'ThresholdController::index');
+        $routes->post('create', 'ThresholdController::create');
+        $routes->post('delete', 'ThresholdController::delete');
+        $routes->post('update', 'ThresholdController::update');
     });
 });
