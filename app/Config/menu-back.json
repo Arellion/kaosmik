@@ -4,5 +4,17 @@
     "url" : "/admin/user",
     "icon" : "<i class=\"fa-solid fa-users\"></i>",
     "class": ""
+  },
+  "Threshold_Level" : {
+    "title" : "Palier de level",
+    "url" : "/admin/threshold",
+    "icon" : "<i class=\"fa-regular fa-circle-up\"></i>",
+    "class": ""
+  },
+  "rarity_Level" : {
+    "title" : "niveau de rareté",
+    "url" : "/admin/rarity",
+    "icon" : "<i class=\"fa-regular fa-gem\"></i>",
+    "class": ""
   }
 }

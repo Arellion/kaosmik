@@ -1,6 +1,6 @@
 <?php
-if($user != null ) {
-    echo $user->getPlayer()->user_id;
+if($logged_user != null ) {
+    echo $logged_user->getPlayer()->user_id;
 }else{
     echo "Vas te connecter";
 }
