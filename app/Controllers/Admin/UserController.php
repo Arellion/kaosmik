@@ -70,5 +70,5 @@ class UserController extends BaseController
         //On redirige
         return $this->redirect('admin/user/');
 
-        }
+    }
 }

@@ -21,7 +21,6 @@ class PlayerModel extends Model
         'fusion_energy',
         'fleet_capacity',
     ];
-
     // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

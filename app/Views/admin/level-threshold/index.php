@@ -13,16 +13,19 @@
                 <?= form_open('admin/threshold/create'); ?>
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
-                        <i class="fa-solid fa-l fa-2xs"></i><i class="fa-solid fa-v fa-2xs"></i><i class="fa-solid fa-l fa-2xs"></i>
+                        <i class="fa-solid fa-l fa-2xs"></i><i class="fa-solid fa-v fa-2xs"></i><i
+                                class="fa-solid fa-l fa-2xs"></i>
                     </span>
-                    <input type="number" value="" name="level" class="form-control" placeholder="Niveaux" title="Niveaux">
+                    <input type="number" value="" name="level" class="form-control" placeholder="Niveaux"
+                           title="Niveaux">
                 </div>
 
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-x fa-2xs"></i><i class="fa-solid fa-p fa-2xs"></i>
                     </span>
-                    <input type="number" value="" name="experience_required" class="form-control" placeholder="Experience"
+                    <input type="number" value="" name="experience_required" class="form-control"
+                           placeholder="Experience"
                            title="Experience">
                 </div>
 
@@ -53,7 +56,9 @@
                                         class="fa-regular fa-trash-can"></i></button>
                             <?= form_hidden('id', $level_threshold['id']) ?>
                             <?= form_close() ?>
-                            <span data-id="<?= $level_threshold['id'] ?>" data-level="<?= $level_threshold['level'] ?>" data-exp="<?= $level_threshold['experience_required'] ?>" class="btn btn-warning btn-sm me-2 openEditModal"><i class="fa-solid fa-pen"></i>
+                            <span data-id="<?= $level_threshold['id'] ?>" data-level="<?= $level_threshold['level'] ?>"
+                                  data-exp="<?= $level_threshold['experience_required'] ?>"
+                                  class="btn btn-warning btn-sm me-2 openEditModal"><i class="fa-solid fa-pen"></i>
                             </span>
 
                         </td>
@@ -74,18 +79,21 @@
             <?= form_open('admin/threshold/update') ?>
             <input type="hidden" value="" id="updateId" name="id">
             <div class="modal-body">
-            <div class="input-icon mb-3">
+                <div class="input-icon mb-3">
                     <span class="input-icon-addon">
-                        <i class="fa-solid fa-l fa-2xs"></i><i class="fa-solid fa-v fa-2xs"></i><i class="fa-solid fa-l fa-2xs"></i>
+                        <i class="fa-solid fa-l fa-2xs"></i><i class="fa-solid fa-v fa-2xs"></i><i
+                                class="fa-solid fa-l fa-2xs"></i>
                     </span>
-                    <input type="number" value="" id="updateLevel" name="level" class="form-control" placeholder="Niveaux" title="Niveaux">
+                    <input type="number" value="" id="updateLevel" name="level" class="form-control"
+                           placeholder="Niveaux" title="Niveaux">
                 </div>
 
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-x fa-2xs"></i><i class="fa-solid fa-p fa-2xs"></i>
                     </span>
-                    <input type="number" value="" id="updateExperience" name="experience_required" class="form-control" placeholder="Experience"
+                    <input type="number" value="" id="updateExperience" name="experience_required" class="form-control"
+                           placeholder="Experience"
                            title="Experience">
                 </div>
             </div>
@@ -98,9 +106,9 @@
     </div>
 </div>
 <script>
-    $(document).ready(function (){
+    $(document).ready(function () {
         const modalEdit = new bootstrap.Modal('#editModal')
-        $(document).on('click','.openEditModal', function (){
+        $(document).on('click', '.openEditModal', function () {
             let id = $(this).data('id');
             let level = $(this).data('level')
             let exp = $(this).data('exp')

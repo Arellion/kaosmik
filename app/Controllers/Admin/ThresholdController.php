@@ -66,10 +66,10 @@ class ThresholdController extends BaseController
         $id = $data['id'];
         unset($data['id']);
         if($this->LevelThresholdModel->update($id, $data)):
-                $this->success('Niveau modifié');
-            else:
-                $this->error('Une erreur est survenue');
-            endif;
+            $this->success('Niveau modifié');
+        else:
+            $this->error('Une erreur est survenue');
+        endif;
 
         return $this->redirect('admin/threshold');
     }
