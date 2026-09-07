@@ -18,7 +18,7 @@
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-highlighter"></i>
                     </span>
-                <input type="color" value="" name="color" class="form-control" placeholder="Couleur" title="Couleur">
+                <input type="color" value="" name="color" class="form-control" style="height: 40px" placeholder="Couleur" title="Couleur">
             </div>
             <div class="input-icon mb-3">
                     <span class="input-icon-addon">
@@ -66,26 +66,29 @@
                     foreach ($RarityLevels as $RarityLevel) { ?>
                         <tr>
                             <td><?= $RarityLevel->name ?></td>
-                            <td><input class="form-control-sm form-control-color w-100" type="color" disabled
-                                       value="<?= $RarityLevel->color ?>"</td>
+                            <td>
+                                <div class="p-3 text-white rounded"
+                                     style="background-color: <?= $RarityLevel->color ?>;"></div>
+                            </td>
                             <td><?= $RarityLevel->power_multiplier ?></td>
                             <td><?= $RarityLevel->cost_multiplier ?></td>
                             <td><?= $RarityLevel->appearance_rate ?></td>
                             <td class="d-flex justify-content-center">
-                                <?= form_open('admin/rarity/delete');
-                                echo form_hidden('id', $RarityLevel->id) ?>
-                                <button type="submit" class="btn btn-danger btn-sm me-3"><i
-                                            class="fa-solid fa-trash-can"></i></button>
-                                <?= form_close() ?>
-                                <span id="btn_edit" class="btn btn-warning btn-sm openEditModal"
+
+                                <span class="btn btn-danger btn-sm me-3 openDeleteModal"
+                                      data-id="<?= $RarityLevel->id ?>"
+                                      data-name="<?= $RarityLevel->name ?>">
+                                    <i class="fa-solid fa-trash-can"></i></span>
+                                <span class="btn btn-warning btn-sm me-2 openEditModal"
                                       data-id="<?= $RarityLevel->id ?>"
                                       data-name="<?= $RarityLevel->name ?>"
                                       data-color="<?= $RarityLevel->color ?>"
-                                      data-power_multiplier="<?= $RarityLevel->power_multiplier ?>"
-                                      data-cost_multiplier="<?= $RarityLevel->cost_multiplier ?>"
-                                      data-appearance_rate="<?= $RarityLevel->appearance_rate ?>"
-                                      data-created_at="<?= $RarityLevel->created_at ?>"
-                                      data-updated_at="<?= $RarityLevel->updated_at ?>"
+                                      data-power="<?= $RarityLevel->power_multiplier ?>"
+                                      data-cost="<?= $RarityLevel->cost_multiplier ?>"
+                                      data-appearance="<?= $RarityLevel->appearance_rate ?>"
+                                      data-created="<?= $RarityLevel->created_at ?>"
+                                      data-updated="<?= $RarityLevel->updated_at ?>"
+
                                 ><i class="fa-solid fa-pen"></i></span>
                             </td>
                         </tr>
@@ -96,7 +99,12 @@
         </div>
     </div>
 </div>
-<div class="modal" tabindex="-1">
+<!--
+
+Modal d'édition
+
+-->
+<div class="modal" id="ModalEdit" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -104,19 +112,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/rarity/create') ?>
+                <?= form_open('admin/rarity/update') ?>
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
                         <i class="fa-regular fa-gem"></i>
                     </span>
-                    <input id="update_name" type="text" value="" name="name" class="form-control" placeholder="Nom" title="Nom">
+                    <input id="update_name" type="text" value="" name="name" class="form-control" placeholder="Nom"
+                           title="Nom">
                 </div>
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-highlighter"></i>
                     </span>
-                    <input id="update_color" type="color" value="" name="color" class="form-control" placeholder="Couleur"
-                           title="Couleur">
+                    <input id="update_color" type="color" value="" name="color" class="form-control"
+                           placeholder="Couleur" title="Couleur" style="height: 40px">
                 </div>
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
@@ -140,18 +149,47 @@
                            placeholder="Taux d'apparition" title="Taux d'apparition">
                 </div>
                 <div class="d-flex justify-content-between">
-                    <i class="fa-solid fa-clock me-2"></i><span id="update_created"></span>
-                    <i class="fa-solid fa-clock me-2"></i><span id="update_updated"></span>
-
+                    <div>
+                        <i class="fa-solid fa-clock me-2"></i><span>Crée le : <span id="update_created"></span></span>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-clock me-2"></i><span>Modifié le : <span
+                                    id="update_updated"></span></span>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-plus"></i> Ajouter une rareté
-                </button>
-                <?= form_close() ?>
             </div>
             <div class="modal-footer">
-                <input type="hidden" value="" id="update_id" name="id">
+                <input type="hidden" value="" id="updateId" name="id">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <?= form_close() ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+
+Modal de supression
+
+-->
+
+<div class="modal" id="ModalDelete" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modification du niveau <span id="level_title"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Etes vous sure de vouloir supprimer <?= $RarityLevel->name ?> ?
+            </div>
+            <div class="modal-footer">
+                <?= form_open('admin/rarity/delete') ?>
+                <input type="hidden" value="" id="DeleteId" name="id">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Supprimer</button>
+                <?= form_close() ?>
             </div>
         </div>
     </div>
@@ -159,8 +197,8 @@
 
 <script>
     $(document).ready(function () {
-        const btn_edit = new bootstrap.Modal('#btn_edit')
-        $(document).on('Click','openEditModal', function (){
+        const ModalEdit = new bootstrap.Modal('#ModalEdit')
+        $(document).on('click', '.openEditModal', function () {
             let id = $(this).data('id');
             let name = $(this).data('name');
             let color = $(this).data('color');
@@ -175,9 +213,15 @@
             $('#update_power').val(power);
             $('#update_cost').val(cost);
             $('#update_appaearance').val(appearance);
-            $('#update_created').val(created);
-            $('#update_updated').val(updated);
-            modalEdit.show();
+            $('#update_created').text(created);
+            $('#update_updated').text(updated);
+            ModalEdit.show();
+        })
+        const ModalDelete = new bootstrap.Modal('#ModalDelete')
+        $(document).on('click', '.openDeleteModal', function () {
+            let id = $(this).data('id');
+            $('#DeleteId').val(id);
+            ModalDelete.show();
         })
     })
 </script>

@@ -17,7 +17,7 @@ class CreateRarityLevelsTable extends Migration
             ],
             'name' => [
                 'type'=> 'VARCHAR',
-                'constraint'=> 7,
+                'constraint'=> 50,
                 'null'=> false,
             ],
             'color' => [
