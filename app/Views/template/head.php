@@ -9,11 +9,19 @@
     <meta name="author" content="<?= $author ?? "" ?>" >
     <meta name="keyword" content="<?= $keyword ?? "" ?>" >
 
-    <!-- TODO: FAVICON -->
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="<?= base_url("/assets/img/favicon/favicon-96x96.png"); ?>" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="<?= base_url("/assets/img/favicon/favicon.svg"); ?>" />
+    <link rel="shortcut icon" href="<?= base_url("/assets/img/favicon/favicon.ico"); ?>" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url("/assets/img/favicon/apple-touch-icon.png"); ?>" />
+    <meta name="apple-mobile-web-app-title" content="KaosmiK" />
+    <link rel="manifest" href="<?= base_url("/assets/img/favicon/site.webmanifest"); ?>" />
+
     <!-- THEME TABLER -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="<?= base_url('/css/style.css'); ?>">
     <!-- JQUEYR -->

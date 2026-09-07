@@ -31,7 +31,7 @@
                             <tr>
                                 <td><?= $user->id ?></td>
                                 <td><?= $user->username ?></td>
-                                <td><?= $user->isActivated() ? "<i class='success fa-solid fa-check'>" : "<i class='text-danger fa-solid fa-x'>" ?></td>
+                                <td><?= $user->active ? "<i class='success fa-solid fa-check'>" : "<i class='text-danger fa-solid fa-x'>" ?></td>
                                 <td><?= implode(', ', $user->getGroups()) ?></td>
 
                                 <td><?= $user->getPlayer()->level; ?></td>

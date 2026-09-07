@@ -51,12 +51,12 @@
                         <td><?= $level_threshold['level'] ?></td>
                         <td><?= $level_threshold['experience_required'] ?></td>
                         <td class="d-flex">
-                            <?= form_open('admin/threshold/delete/') ?>
-                            <button type="submit" class="btn btn-danger btn-sm me-2"><i
-                                        class="fa-regular fa-trash-can"></i></button>
-                            <?= form_hidden('id', $level_threshold['id']) ?>
-                            <?= form_close() ?>
-                            <span data-id="<?= $level_threshold['id'] ?>" data-level="<?= $level_threshold['level'] ?>"
+                            <span class="btn btn-danger btn-sm me-3 openDeleteModal"
+                                  data-id="<?= $level_threshold['id'] ?>"
+                                  data-level="<?= $level_threshold['level'] ?>">
+                                    <i class="fa-solid fa-trash-can"></i></span>
+                            <span data-id="<?= $level_threshold['id'] ?>"
+                                  data-level="<?= $level_threshold['level'] ?>"
                                   data-exp="<?= $level_threshold['experience_required'] ?>"
                                   class="btn btn-warning btn-sm me-2 openEditModal"><i class="fa-solid fa-pen"></i>
                             </span>
@@ -105,6 +105,26 @@
         </div>
     </div>
 </div>
+<div class="modal" id="ModalDelete" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modification du niveau <span id="level_title"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Etes vous sure de vouloir supprimer le niveau <?= $level_threshold['level'] ?> ?
+            </div>
+            <div class="modal-footer">
+                <?= form_open('admin/rarity/delete') ?>
+                <input type="hidden" value="" id="DeleteId" name="id">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Supprimer</button>
+                <?= form_close() ?>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         const modalEdit = new bootstrap.Modal('#editModal')
@@ -116,6 +136,12 @@
             $('#updateLevel').val(level);
             $('#updateExperience').val(exp);
             modalEdit.show();
+        })
+        const ModalDelete = new bootstrap.Modal('#ModalDelete')
+        $(document).on('click', '.openDeleteModal', function () {
+            let id = $(this).data('id');
+            $('#DeleteId').val(id);
+            ModalDelete.show();
         })
 
     })
