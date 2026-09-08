@@ -16,5 +16,11 @@
     "url" : "/admin/rarity",
     "icon" : "<i class=\"fa-regular fa-gem\"></i>",
     "class": ""
+  },
+  "hero_model" : {
+    "title" : "Model de Hero",
+    "url" : "/admin/hero-model",
+    "icon" : "<i class=\"fa-solid fa-shield-halved\"></i>",
+    "class" : ""
   }
 }
