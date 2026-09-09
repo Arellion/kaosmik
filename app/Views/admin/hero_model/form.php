@@ -17,7 +17,7 @@
                     <label class="form-label">Nom</label>
                     <div class="input-icon">
                     <span class="input-icon-addon">
-                        <i class="fa-solid fa"></i>
+                        <i class="fa-solid fa-tag"></i>
                     </span>
                         <input type="text" name="name" class="form-control" placeholder="Nom" title="Nom"
                                value="<?= isset($hm) ? $hm->name : '' ?>" required>
@@ -33,7 +33,7 @@
                     <label class="form-label">Selectionner la spécialization</label>
                     <select name="specialization_id" class="form-select" >
                         <?php foreach ($specializations as $spe): ?>
-                            <option <?=($spe['id'] == isset($hm->specialization_id)) ? 'seleted' : '' ?> value="<?= $spe['id'] ?>"><?= $spe['name'] ?></option>
+                            <option <?=(isset($hm) && $spe['id'] == $hm->specialization_id) ? 'selected' : '' ?> value="<?= $spe['id'] ?>"><?= $spe['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -44,7 +44,7 @@
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-hand-fist"></i>
                     </span>
-                        <input type="number" name="power_min" class="form-control" placeholder="Puissance minimum"
+                        <input step="any" type="number" name="power_min" class="form-control" placeholder="Puissance minimum"
                                title="Puissance minimum" value="<?= isset($hm) ? $hm->power_min : '' ?>" required>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-cent-sign"></i>
                     </span>
-                        <input type="number" name="cost_credits_min" class="form-control" placeholder="Coût minimum"
+                        <input step="any" type="number" name="cost_credits_min" class="form-control" placeholder="Coût minimum"
                                title="Coût minimum" value="<?= isset($hm) ? $hm->cost_credits_min : '' ?>" required>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                     <div class="input-icon">
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-cent-sign"></i></span>
-                        <input type="number" name="cost_credits_max" class="form-control" placeholder="Coût maximum"
+                        <input step="any" type="number" name="cost_credits_max" class="form-control" placeholder="Coût maximum"
                                title="Coût maximum" value="<?= isset($hm) ? $hm->cost_credits_max : '' ?>" required>
                     </div>
                 </div>
@@ -88,9 +88,11 @@
                                title="Level requis" value="<?= isset($hm) ? $hm->level_required : '' ?>" required>
                     </div>
                 </div>
+                <div class="text-end">
                 <button class="btn btn-primary btn-sm" type="submit"><i
-                            class="fa-solid fa-plus me-1"></i><?= isset($hm) ? 'Ajouter' : 'Modifier' ?> le modèle hero
+                            class="fa-solid fa-plus me-1"></i><?= isset($hm) ? 'Modifier' : 'Créer' ?> le modèle hero
                 </button>
+                </div>
                 <?= form_close() ?>
             </div>
         </div>

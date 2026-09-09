@@ -20,7 +20,7 @@ class ThresholdController extends BaseController
     {
         helper(['form']);
         $thM = $this->LevelThresholdModel->orderBy('level', 'ASC')->findAll();
-        return $this->render('/admin/level-threshold/index', ['level_thresholds' => $thM]);
+        return $this->render('/admin/level-threshold/index', ['levelThresholds' => $thM]);
     }
     public function create()
     {

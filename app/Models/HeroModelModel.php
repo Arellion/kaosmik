@@ -13,7 +13,7 @@ class HeroModelModel extends Model
     protected $returnType       = HeroModel::class;
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name','description','power_min','power_max','cost_credits_min','cost_credits_max','level_required'];
+    protected $allowedFields    = ['specialization_id','name','description','power_min','power_max','cost_credits_min','cost_credits_max','level_required'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

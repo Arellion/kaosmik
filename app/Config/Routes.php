@@ -40,5 +40,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'gr
         $routes->get('/', 'HeroModelController::index');
         $routes->get('new', 'HeroModelController::new');
         $routes->get('edit/(:num)', 'HeroModelController::edit/$1');
+        $routes->post('create-update', 'HeroModelController::createUpdate');
+        $routes->get('delete/(:num)', 'HeroModelController::delete/$1');
     });
 });

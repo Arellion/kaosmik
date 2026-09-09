@@ -1,6 +1,6 @@
 <div class="row align-items-center">
     <div class="col">
-        <div class="page-title">Liste des modèle des héros</div>
+        <div class="page-title">Liste des modèles des héros</div>
         <div class="col-auto d-print-none">
             <div class="btn-list d-flex justify-content-end">
                 <a href="<?= base_url('/admin/hero-model/new') ?>" class="btn btn-primary btn-sm">
@@ -29,18 +29,24 @@
                     </thead>
                     <tbody>
                     <?php foreach ($hero_models as $hm) : ?>
-                    <tr>
-                        <td><?= $hm->id ?></td>
-                        <td><?= $hm->name ?></td>
-                        <td><?= $hm->getSpecialization()['name']?></td>
-                        <td><?= $hm->power_min.' / '.$hm->power_max ?></td>
-                        <td><?= $hm->cost_credits_min.' / '.$hm->cost_credits_max ?></td>
-                        <td><?= $hm->level_required ?></td>
-                        <td>
+                        <tr>
+                            <td><?= $hm->id ?></td>
+                            <td><?= $hm->name ?></td>
+                            <td><?= $hm->getSpecialization()['name'] ?></td>
+                            <td><?= $hm->power_min . ' / ' . $hm->power_max ?></td>
+                            <td><?= $hm->cost_credits_min . ' / ' . $hm->cost_credits_max ?></td>
+                            <td><?= $hm->level_required ?></td>
+                            <td class="d-flex">
+                                <a class="btn btn-warning btn-sm me-2"
+                                   href="<?= base_url('/admin/hero-model/edit/' . $hm->id) ?>"><i
+                                            class="fa-solid fa-pen"></i></a>
 
-
-                        </td>
-                    </tr>
+                                <?php if ($hm->id != 1) : ?>
+                                    <a class="btn btn-danger btn-sm"
+                                       href="<?= base_url('/admin/hero-model/delete/' . $hm->id) ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                     </tbody>
                 </table>
