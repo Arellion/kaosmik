@@ -1,71 +1,72 @@
-<div class="row">
+<div class="row align-items-center mb-3">
     <div class="col">
-        <h1>Courbe des niveaux</h1>
+        <div class="page-title">Courbe des niveaux</div>
     </div>
 </div>
-<div class="row">
+<div class="row mb-3">
     <div class="col-md-3">
         <div class="card h-100">
-            <div class="card-header">
-                <h2>Ajouter un niveau</h2>
-            </div>
             <div class="card-body">
-                <?= form_open('admin/threshold/create'); ?>
+                <div class="card-title">Ajouter un niveau</div>
+                <?= form_open('admin/threshold/create') ?>
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
-                        <i class="fa-solid fa-l fa-2xs"></i><i class="fa-solid fa-v fa-2xs"></i><i
-                                class="fa-solid fa-l fa-2xs"></i>
+                        <i class="fa-solid fa-n fa-xs"></i>
+                        <i class="fa-solid fa-v fa-xs"></i>
                     </span>
-                    <input type="number" value="" name="level" class="form-control" placeholder="Niveaux"
-                           title="Niveaux">
+                    <input type="number" name="level" class="form-control" placeholder="Niveau" value="<?= !empty($levelThresholds) ? end($levelThresholds)['level'] + 1 : 1; ?>" min="1" title="Niveau">
                 </div>
-
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
-                        <i class="fa-solid fa-x fa-2xs"></i><i class="fa-solid fa-p fa-2xs"></i>
+                        <i class="fa-solid fa-x fa-xs"></i>
+                        <i class="fa-solid fa-p fa-xs"></i>
                     </span>
-                    <input type="number" value="" name="experience_required" class="form-control"
-                           placeholder="Experience"
-                           title="Experience">
+                    <input type="number" name="experience_required" class="form-control" placeholder="Experience requise" value="<?= !empty($levelThresholds) ? round(end($levelThresholds)['experience_required'] * 1.3): 1; ?>" min="1" title="Experience requise">
                 </div>
-
-                <button type="submit" class="btn btn-primary w-100">Ajouter un niveau</button>
-                <?= form_close() ?>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary"><i class="fa-regular fa-floppy-disk me-2"></i>Ajouter</button>
+                    <?= form_close(); ?>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-9">
-        <div class="card p-3">
-            <table class="table table-responsive table-hover table-striped table-sm " data-toggle="table"
-                   data-height="460" data-pagination="true" data-page-list="[10, 25, 50, 100, 200, All]">
-                <thead>
-                <tr>
-                    <th>NIVEAUX</th>
-                    <th>EXPERIENCE REQUISE</th>
-                    <th>ACTIONS</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($level_thresholds as $level_threshold): ?>
+        <div class="card h-100">
+            <div class="card-body table-responsive">
+                <table class="table table-hover table-striped table-sm" data-toggle="table" data-pagination="true" data-page-size="15" data-sortable="true">
+                    <thead>
                     <tr>
-                        <td><?= $level_threshold['level'] ?></td>
-                        <td><?= $level_threshold['experience_required'] ?></td>
-                        <td class="d-flex">
-                            <span class="btn btn-danger btn-sm me-3 openDeleteModal"
-                                  data-id="<?= $level_threshold['id'] ?>"
-                                  data-level="<?= $level_threshold['level'] ?>">
-                                    <i class="fa-solid fa-trash-can"></i></span>
-                            <span data-id="<?= $level_threshold['id'] ?>"
-                                  data-level="<?= $level_threshold['level'] ?>"
-                                  data-exp="<?= $level_threshold['experience_required'] ?>"
-                                  class="btn btn-warning btn-sm me-2 openEditModal"><i class="fa-solid fa-pen"></i>
-                            </span>
-
-                        </td>
+                        <th data-sortable="true">Niveau</th>
+                        <th data-sortable="true">Experiences Requise</th>
+                        <th data-sortable="false">Actions</th>
                     </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($levelThresholds as $lt) : ?>
+                        <tr>
+                            <td><?= $lt['level'];?></td>
+                            <td><?= $lt['experience_required'];?></td>
+                            <td class="d-flex">
+                                <?= form_open('admin/threshold/delete'); ?>
+                                <?= form_hidden('id', $lt['id']);?>
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                                <?= form_close(); ?>
+                                <span
+                                        class="ms-2 btn btn-sm btn-warning openEditModal"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editModal"
+                                        data-level="<?= $lt['level'];?>"
+                                        data-exp="<?= $lt['experience_required'];?>"
+                                        data-id="<?= $lt['id'];?>">
+                                    <i class="fa-solid fa-pen"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 </div>
@@ -76,73 +77,53 @@
                 <h1 class="modal-title fs-5">Modification</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <?= form_open('admin/threshold/update') ?>
-            <input type="hidden" value="" id="updateId" name="id">
+            <?= form_open('admin/threshold/update'); ?>
+            <input type="hidden" id="updateId" value="" name="id">
             <div class="modal-body">
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
-                        <i class="fa-solid fa-l fa-2xs"></i><i class="fa-solid fa-v fa-2xs"></i><i
-                                class="fa-solid fa-l fa-2xs"></i>
+                        <i class="fa-solid fa-n fa-xs"></i>
+                        <i class="fa-solid fa-v fa-xs"></i>
                     </span>
-                    <input type="number" value="" id="updateLevel" name="level" class="form-control"
-                           placeholder="Niveaux" title="Niveaux">
+                    <input id="updateLevel" type="number" name="level" class="form-control" placeholder="Niveau" value="" min="1" title="Niveau">
                 </div>
-
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
-                        <i class="fa-solid fa-x fa-2xs"></i><i class="fa-solid fa-p fa-2xs"></i>
+                        <i class="fa-solid fa-x fa-xs"></i>
+                        <i class="fa-solid fa-p fa-xs"></i>
                     </span>
-                    <input type="number" value="" id="updateExperience" name="experience_required" class="form-control"
-                           placeholder="Experience"
-                           title="Experience">
+                    <input id="updateExperience" type="number" name="experience_required" class="form-control" placeholder="Experience requise" value="" min="1" title="Experience requise">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                 <button type="submit" class="btn btn-primary">Sauvegarder</button>
             </div>
-            <?= form_close() ?>
+            <?= form_close(); ?>
         </div>
     </div>
 </div>
-<div class="modal" id="ModalDelete" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modification du niveau <span id="level_title"></span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Etes vous sure de vouloir supprimer le niveau <?= $level_threshold['level'] ?> ?
-            </div>
-            <div class="modal-footer">
-                <?= form_open('admin/rarity/delete') ?>
-                <input type="hidden" value="" id="DeleteId" name="id">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Supprimer</button>
-                <?= form_close() ?>
-            </div>
-        </div>
-    </div>
-</div>
+<style>
+    /* Annule le flex: 0 0 50% de Tabler sur les boutons de pagination */
+    .bootstrap-table .pagination .page-item.page-next,
+    .bootstrap-table .pagination .page-item.page-prev {
+        flex: none !important;
+        text-align: inherit !important;
+    }
+</style>
 <script>
-    $(document).ready(function () {
-        const modalEdit = new bootstrap.Modal('#editModal')
-        $(document).on('click', '.openEditModal', function () {
-            let id = $(this).data('id');
-            let level = $(this).data('level')
-            let exp = $(this).data('exp')
+    $(document).ready(function(){
+        // A n'écouter qu'en JS natif : tabler.min.js dispatche un évènement DOM
+        // dont le "type" est littéralement "show.bs.modal". jQuery .on('show.bs.modal', ...)
+        // interprète le point comme un namespace et n'écoute que "show", donc ne se déclenche jamais.
+        document.getElementById('editModal').addEventListener('show.bs.modal', function (event) {
+            let button = event.relatedTarget;
+            let id = button.getAttribute('data-id');
+            let level = button.getAttribute('data-level');
+            let exp = button.getAttribute('data-exp');
             $('#updateId').val(id);
             $('#updateLevel').val(level);
             $('#updateExperience').val(exp);
-            modalEdit.show();
         })
-        const ModalDelete = new bootstrap.Modal('#ModalDelete')
-        $(document).on('click', '.openDeleteModal', function () {
-            let id = $(this).data('id');
-            $('#DeleteId').val(id);
-            ModalDelete.show();
-        })
-
-    })
+    });
 </script>

@@ -4,7 +4,7 @@
     </div>
     <div class="col-auto ms-auto d-print-none">
         <div class="btn-list">
-            <a href="" class="btn btn-primary btn-sm">
+            <a href="<?= base_url('admin/user/new') ?>" class="btn btn-primary btn-sm">
                 <i class="fas fa-plus me-2"></i> Ajouter un utilisateur
             </a>
         </div>

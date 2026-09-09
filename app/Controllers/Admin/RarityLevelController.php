@@ -19,7 +19,7 @@ class RarityLevelController extends BaseController
     {
         helper(['form']);
         $RlM = $this->RarityLevelsModel->findAll();
-        return $this->render('admin/rarity-level/index', ['RarityLevels' => $RlM]);
+        return $this->render('admin/rarity-level/index', ['rarityLevels' => $RlM]);
     }
 
     public function create()
@@ -41,7 +41,6 @@ class RarityLevelController extends BaseController
     {
         try {
             $id = $this->request->getVar('id');
-            print_r($id);
             if ($id == 1) {
                 $this->error('Impossible de supprimer le niveaux commun');
                 $this->redirect('admin/rarity');
