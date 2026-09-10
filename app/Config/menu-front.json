@@ -1,16 +1,8 @@
 {
   "animal" : {
-    "title" : "Animal",
-    "url" : "/animal",
+    "title" : "Recruter",
+    "url" : "/cantina",
     "icon" : "<i class=\"fa-solid fa-paw\"></i>",
-    "class": "",
-    "subs": {
-      "creation" : {
-        "title" : "Creation",
-        "url" : "/animal",
-        "icon" : "<i class=\"fa-solid fa-paw\"></i>",
-        "class": ""
-      }
-    }
+    "class": ""
   }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\AuthController;
+use App\Controllers\CantinaController;
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
@@ -12,6 +13,13 @@ $routes->post('login', [AuthController::class, 'loginAction']);
 $routes->get('register', [AuthController::Class, 'registerView']);
 $routes->post('register', [AuthController::Class, 'registerAction']);
 $routes->get('logout', [AuthController::class, 'logoutAction']);
+
+//Route pour l'utilis'
+$routes->group('', ['filter' => 'session'], function ($routes) {
+    $routes->group('cantina', function ($routes) {
+        $routes->get('/', 'CantinaController::index');
+    });
+});
 
 //Route pour Administration
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'group:admin'], function ($routes) {

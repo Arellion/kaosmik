@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Entities\RarityLevel;
 use CodeIgniter\Model;
 
-class RarityLevelsModel extends Model
+class RarityLevelModel extends Model
 {
     protected $table            = 'rarity_levels';
     protected $primaryKey       = 'id';
@@ -89,7 +89,7 @@ protected function calculateCommonAppearanceRate(array $data)
 
     return $data;
 }
-public function getRamdomRarity()
+public function getRandomRarity()
 {
     //On génére un nombre entre 1 et 100
     $random = rand(1,100);
