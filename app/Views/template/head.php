@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="<?= base_url('/css/style.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('/css/kaosmik.css'); ?>">
     <!-- JQUEYR -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@4.0.0/dist/jquery.min.js"></script>
     <!-- JS -->

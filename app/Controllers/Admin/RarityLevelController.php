@@ -3,7 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Models\RarityLevelsModel;
+use App\Models\RarityLevelModel;
 
 class RarityLevelController extends BaseController
 {
@@ -12,7 +12,7 @@ class RarityLevelController extends BaseController
 
     public function __construct()
     {
-        $this->RarityLevelsModel = model('RarityLevelsModel');
+        $this->RarityLevelsModel = model('RarityLevelModel');
     }
 
     public function index()
