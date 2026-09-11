@@ -21,6 +21,8 @@ $routes->group('', ['filter' => 'session'], function ($routes) {
     });
 });
 
+service('auth')->routes($routes);
+
 //Route pour Administration
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'group:admin'], function ($routes) {
     $routes->get('/', 'AdminController::index');
@@ -50,5 +52,11 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'gr
         $routes->get('edit/(:num)', 'HeroModelController::edit/$1');
         $routes->post('create-update', 'HeroModelController::createUpdate');
         $routes->get('delete/(:num)', 'HeroModelController::delete/$1');
+    });
+    $routes->group('specialization', function ($routes) {
+        $routes->get('/', 'SpecializationController::index');
+        $routes->post('create', 'SpecializationController::create');
+        $routes->post('delete', 'SpecializationController::delete');
+        $routes->post('update', 'SpecializationController::update');
     });
 });

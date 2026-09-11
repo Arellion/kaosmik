@@ -47,12 +47,9 @@
                             <td><?= $lt['level'];?></td>
                             <td><?= $lt['experience_required'];?></td>
                             <td class="d-flex">
-                                <?= form_open('admin/threshold/delete'); ?>
-                                <?= form_hidden('id', $lt['id']);?>
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                                <?= form_close(); ?>
+
                                 <span
-                                        class="ms-2 btn btn-sm btn-warning openEditModal"
+                                        class="ms-2 btn btn-sm btn-warning openEditModal me-3"
                                         data-bs-toggle="modal"
                                         data-bs-target="#editModal"
                                         data-level="<?= $lt['level'];?>"
@@ -60,6 +57,10 @@
                                         data-id="<?= $lt['id'];?>">
                                     <i class="fa-solid fa-pen"></i>
                                 </span>
+                                <?= form_open('admin/threshold/delete'); ?>
+                                <?= form_hidden('id', $lt['id']);?>
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                                <?= form_close(); ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
