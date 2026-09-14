@@ -69,7 +69,7 @@
                             <td><?= $rarityLevel->cost_multiplier; ?></td>
                             <td><?= $rarityLevel->appearance_rate; ?></td>
                             <td class="d-flex">
-                                <button type="button" class="btn btn-sm btn-warning openEditModal me-2" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?= $rarityLevel->id; ?>" data-name="<?= $rarityLevel->name; ?>" data-color="<?= $rarityLevel->color; ?>" data-power="<?= $rarityLevel->power_multiplier; ?>" data-cost="<?= $rarityLevel->cost_multiplier; ?>" data-appearance="<?= $rarityLevel->appearance_rate; ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button type="button" class="btn btn-sm btn-warning openEditModal me-2" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?= $rarityLevel->id; ?>" data-name="<?= $rarityLevel->name; ?>" data-color="<?= $rarityLevel->color; ?>" data-power="<?= $rarityLevel->power_multiplier; ?>" data-cost="<?= $rarityLevel->cost_multiplier; ?>" data-appearance="<?= $rarityLevel->appearance_rate; ?>"><i class="fa-solid fa-pen"></i></button>
                                 <?= form_open('admin/rarity/delete'); ?>
                                 <?= form_hidden('id', $rarityLevel->id);?>
                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
