@@ -16,7 +16,7 @@
                            title="Niveau">
                 </div>
                 <div>
-                        <textarea class="form-control mb-3" name="description" rows="3" placeholder="Description"></textarea>
+                        <textarea class="form-control mb-3" name="description" rows="10" placeholder="Description"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-plus me-1"></i> Ajouter une spécialization</button>
 
