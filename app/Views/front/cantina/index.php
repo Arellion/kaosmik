@@ -2,7 +2,7 @@
     <?php
     foreach ($cantinaHeroes as $hero) { ?>
         <div class="col">
-            <?= view_cell('HeroCell', ['character' => $hero]); ?>
+            <?= view_cell('HeroCell', ['character' => $hero, 'context' => 'cantina']) ?>
         </div>
     <?php } ?>
 </div>

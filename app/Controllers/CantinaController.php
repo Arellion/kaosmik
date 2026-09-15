@@ -16,7 +16,7 @@ class CantinaController extends BaseController
     public function index()
     {
         $cantina = service('Cantina');
-        $cantinaHeroes = $cantina->generateOffers(auth()->user()->getPlayer()->id);
+        $cantinaHeroes = $cantina->getOnGeneratedOffers(auth()->user()->getPlayer()->id);
         return $this->render('front/cantina/index', ['cantinaHeroes' => $cantinaHeroes]);
     }
 }

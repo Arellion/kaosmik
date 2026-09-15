@@ -7,6 +7,7 @@ use App\Models\HeroModelModel;
 use App\Models\HeroNameModel;
 use App\Models\PlayerModel;
 use App\Models\RarityLevelModel;
+use CodeIgniter\I18n\Time;
 
 class CantinaService
 {
@@ -63,5 +64,21 @@ class CantinaService
             $this->cantinaModel->insertBatch($batchData);
         }
         return $this->cantinaModel->where('player_id', $playerId)->findAll();
+    }
+
+    public function getOnGeneratedOffers(int $playerId, int $number = 3) : array{
+        $offers = $this->cantinaModel->where('player_id', $playerId)->findAll();
+        if(!empty($offers)){
+            $hour = $offers[0]->created_at;
+            if($hour != null ){
+                $createdTime = Time::parse($hour);
+                $now = Time::now();
+                $diff = $createdTime->difference($now)->getHours();
+                if($diff < 12){
+                    return $offers;
+                }
+            }
+        }
+        return $this->generateOffers($playerId, $number);
     }
 }

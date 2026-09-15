@@ -103,4 +103,8 @@ public function getRandomRarity()
         }
     }
 }
+public function getColor($id){
+        $color = $this->find($id);
+        return $color;
+}
 }

@@ -23,6 +23,12 @@
                                value="<?= isset($hm) ? $hm->name : '' ?>" required>
                     </div>
                 </div>
+                <?php if (isset($hm)): ?>
+                <div class="mb-3 d-flex">
+                    <img class="avatar border border-kaosmik me-3" src="<?= (isset($hm) && $hm->getImage()) ? $hm->getImage()->getUrl() : base_url('assets/img/no-img.png') ?>">
+                    <input type="file" name="image" class="form-control" placeholder="Image" title="Image">
+                </div>
+                <?php endif; ?>
                 <div class="mb-3">
                     <label class="form-label">Déscription</label>
                     <textarea class="form-control" name="description" title="description"
