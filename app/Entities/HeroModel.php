@@ -26,4 +26,9 @@ class HeroModel extends Entity
         }
         return $this->specialization;
     }
+
+    public function getImage() {
+        $mediaModel = model('MediaModel');
+        return $mediaModel->getOneMedia('hero_models', $this->id);
+    }
 }

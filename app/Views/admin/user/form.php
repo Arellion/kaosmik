@@ -47,7 +47,7 @@ if (isset($user)) {
                     } ?>>
                     <span class="form-check-label">Actif</span>
                 </label>
-
+                <?php if(!isset($user) || $user->id !== 1 ) : ?>
                 <label class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" name="admin" value="1" <?php
                     if(isset($user)){
@@ -56,6 +56,7 @@ if (isset($user)) {
                     } ?>>
                     <span class="form-check-label">Permission d'administrateur</span>
                 </label>
+                <?php endif; ?>
 
             </div>
         </div>

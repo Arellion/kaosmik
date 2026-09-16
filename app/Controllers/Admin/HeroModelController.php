@@ -49,6 +49,19 @@ class HeroModelController extends BaseController
         $saveOk = $this->heroModel->save($heromodel);
         if($saveOk){
             if(isset($heromodeldata['id'])) {
+                $img = $this->request->getFile('image');
+                if($img->isValid() && !$img->hasMoved()){
+                    helper('media');
+                    $result = upload_single_image($img, 'hero_models', $heromodeldata['name'], [
+                        'entity_type' => 'hero_models',
+                        'entity_id' => $heromodeldata['id'],
+                    ]);
+                    if($result->status == 'error'){
+                        $this->error($result['message']);
+                    }else{
+                        $this->success('Image téléversé');
+                    }
+                }
                 $this->success('Le modèle : ' . $heromodel->name . ' à bien était modifier');
                 $id = $heromodeldata['id'];
             }else{

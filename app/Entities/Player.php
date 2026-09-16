@@ -19,6 +19,7 @@ class Player extends Entity
         'experience' => 0,
         'credits' => 1000,
         'fusion_energy' => 0,
+        'fleet_capacity' => 10,
     ];
     protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
     protected $casts   = [
@@ -28,8 +29,12 @@ class Player extends Entity
         'experience' => 'integer',
         'credits' => 'integer',
         'fusion_energy' => 'integer',
+        'fleet_capacity' => 'integer',
+
     ];
     protected ?User $user = null;
+
+    protected $heroes = array();
 
     public function getUser(): ?User
     {
@@ -68,5 +73,22 @@ class Player extends Entity
         $threshold = $LevelThresholdModel->where('experience_required <=', $exp)->orderBy('level', 'DESC')->first();
         //on retourne le niveau trouvé sinon 1
         return $threshold ? (int) $threshold['level'] : 1;
+    }
+    public function getHeroes()
+    {
+        if(!empty($this->heroes)){
+            return $this->heroes;
+        }
+        $heroModel = model('HeroModel');
+        $this->heroes = $heroModel->where('player_id',
+        $this->attributes['id'])->findAll();
+        return $this->heroes;
+    }
+    public function isFleetFull()
+    {
+        if($this->attributes['fleet_capacity'] <= $this->getHeroes()->count()){
+            return false;
+        }
+        return true;
     }
 }
