@@ -86,9 +86,17 @@ class Player extends Entity
     }
     public function isFleetFull()
     {
-        if($this->attributes['fleet_capacity'] <= $this->getHeroes()->count()){
+        if($this->attributes['fleet_capacity'] >= count($this->getHeroes())){
             return false;
         }
         return true;
+    }
+    public function getTotalPower()
+    {
+        $totalPower = 0;
+        foreach ($this->getHeroes() as $hero){
+            $totalPower += $hero->power;
+        }
+        return $totalPower;
     }
 }

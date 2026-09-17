@@ -2,7 +2,12 @@
   "animal" : {
     "title" : "Recruter",
     "url" : "/cantina",
-    "icon" : "<i class=\"fa-solid fa-paw\"></i>",
+    "icon" : "<i class=\"fa-regular fa-user\"></i>",
     "class": ""
+  },
+  "crew" : {
+    "title" : "Equipage",
+    "url" : "/equipage",
+    "icon" : "<i class=\"fa-solid fa-users\"></i>"
   }
 }
