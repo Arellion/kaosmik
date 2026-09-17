@@ -29,14 +29,14 @@ if (isset($user)) {
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-lock"></i>
                     </span>
-                    <input type="text" value="" name="secret2" class="form-control" placeholder="Mot de passe"
+                    <input type="text" value="" name="password" class="form-control" placeholder="Mot de passe"
                            title="Mot de passe">
                 </div>
                 <div class="input-icon mb-3">
                     <span class="input-icon-addon">
                         <i class="fa-solid fa-envelope"></i>
                     </span>
-                    <input type="text" value="<?= isset($user) ? esc($user->email) : '' ?>" name="secret"
+                    <input type="text" value="<?= isset($user) ? esc($user->email) : '' ?>" name="mail"
                            title="Mail" class="form-control" placeholder="Mail" <?= isset ($user) ? "disabled" : "" ?>>
                 </div>
                 <label class="form-check form-switch">

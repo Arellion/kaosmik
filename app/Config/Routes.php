@@ -14,12 +14,17 @@ $routes->get('register', [AuthController::Class, 'registerView']);
 $routes->post('register', [AuthController::Class, 'registerAction']);
 $routes->get('logout', [AuthController::class, 'logoutAction']);
 
-//Route pour l'utilis'
+//Route pour l'utilisateur'
 $routes->group('', ['filter' => 'session'], function ($routes) {
     $routes->group('cantina', function ($routes) {
         $routes->get('/', 'CantinaController::index');
         $routes->post('refresh', 'CantinaController::refresh');
         $routes->post('recruit/(:num)', 'CantinaController::recruit/$1');
+    });
+    //Route pour l'equipage
+    $routes->group('equipage', function ($routes) {
+        $routes->get('/', 'CrewController::index');
+        $routes->post('sell/(:num)', 'CrewController::sell/$1');
     });
     //Route pour le profil
 });

@@ -95,9 +95,16 @@ class CantinaService
         if($cantinaHero === null){
             return null;
         }
-        //Verification du joueur + son solde
         $player_id = $cantinaHero->player_id;
         $player = $this->playerModel->find($playerId);
+
+        //Verifivation de si on a encore de la place dans l'équipe
+        if ($player->isFleetFull() == true){
+            return null;
+        }
+
+        //Verification du solde
+
         if($player->credits < $cantinaHero->cost_credit){
             return null;
         }
