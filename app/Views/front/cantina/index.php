@@ -4,9 +4,12 @@
             <h1 class="shadow text-white"> La Cantina </h1>
             <span class="text-white">Ici, on recrute nos mercenaire</span>
         </div>
-        <div class="ms-auto">
+        <div class="ms-auto d-flex align-items-center">
+            <span class="me-3" id="timer" data-seconds="<?= $remaining_seconds ?>">
+                <?= $remaining_time ?>
+            </span>
             <?= form_open('cantina/refresh'); ?>
-            <button class="btn btn-kaosmik">Rafraichir la selection</button>
+            <button class="btn btn-kaosmik">Rafraichir (<span id="refresh-cost"></span>)</button>
             <?= form_close(); ?>
         </div>
     </div>
@@ -20,3 +23,73 @@
         </div>
     <?php } ?>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        //Selection des l'éléments
+        const timerElement = document.getElementById('timer');
+        const refreshCostElement = document.getElementById('refresh-cost');
+
+        if (!timerElement) return;
+        //Récupération des secondes
+        let remainingSeconds = parseInt(timerElement.dataset.seconds, 10);
+        //Sécurité : si pas valide ou 0 on rafraichit
+        if (isNaN(remainingSeconds) || remainingSeconds <= 0) {
+            window.location.reload();
+            return;
+        }
+        //Conversion des secondes en dates
+        const formatTime = (seconds) => {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = seconds % 60;
+            const pad = (num) => String(num).padStart(2, '0');
+            return `${pad(h)}:${pad(m)}:${pad(s)}`;
+        }
+        //Valcule du coup de rafraichissement
+        const updateRefreshCost = (seconds) => {
+            if (!refreshCostElement) return;
+            const h = Math.floor(seconds / 3600);
+            const cost = (h + 1) * 10;
+            refreshCostElement.textContent = cost;
+
+        }
+
+        //Affichage initial
+        timerElement.textContent = formatTime(remainingSeconds);
+        updateRefreshCost((remainingSeconds))
+        //Création d'un décompte
+        const countdown = setInterval(() => {
+            remainingSeconds--;
+            if (remainingSeconds <= 0) {
+                clearInterval(countdown);
+                timerElement.textContent = '00:00:00';
+                window.location.reload();
+                return;
+            }
+            timerElement.textContent = formatTime(remainingSeconds);
+        }, 1000);
+        //Mettre à jour le cout si on change d'heure( quand minutes et secondes passe à 59 )
+        if (remainingSeconds % 3600 === 3599) {
+            updateRefreshCost(remainingSeconds)
+        }
+        //Message de confirmation d'achat
+        $(document).on('submit', 'form[action*="recruit"]', function(e) {
+            e.preventDefault();
+            let form = $(this);
+            Swal.fire({
+                title:'Êtes-vous sûr de vouloir acheter ce mercenaire ?',
+                text : 'Cette achat vas rafraichir la cantina !',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Oui, Acheter',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.get(0).submit();
+                }
+            })
+        })
+
+    });
+</script>
