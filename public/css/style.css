@@ -4,3 +4,6 @@
     flex: none !important;
     text-align: inherit !important;
 }
+.page-body {
+    z-index: 2;
+}

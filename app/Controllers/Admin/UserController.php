@@ -181,6 +181,21 @@ class UserController extends BaseController
             $data['active'] = 0;
         }
 
+        //Travail sur l'image
+        $image = $this->request->getFile('image');
+        if ($image->isValid() && !$image->hasMoved()) {
+            helper('media');
+            $result = upload_single_image($image, 'users', $data['username'], [
+                'entity_type' => 'users',
+                'entity_id' => $user_id,
+            ]);
+            if ($result->status == 'error') {
+                $this->error($result['message']);
+            }else{
+                $this->success('Image téléversé');
+            }
+        }
+
         // REMPLISSAGE DES ENTITÉS
         // fill() applique les données du tableau sur les propriétés correspondantes de l'entité.
         // Les champs qui n'existent pas dans l'entité sont ignorés.

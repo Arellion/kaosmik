@@ -9,7 +9,7 @@
 <?php $form_action = 'admin/user/';
 if (isset($user)) {
     $form_action .= 'update';
-}else {
+} else {
     $form_action .= 'create';
 }; ?>
 <?= form_open_multipart($form_action) ?>
@@ -41,31 +41,36 @@ if (isset($user)) {
                 </div>
                 <label class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" name="active" <?php
-                    if(isset($user)){
-                        if($active = 1)
-                        {echo "checked";}
+                    if (isset($user)) {
+                        if ($active = 1) {
+                            echo "checked";
+                        }
                     } ?>>
                     <span class="form-check-label">Actif</span>
                 </label>
-                <?php if(!isset($user) || $user->id !== 1 ) : ?>
-                <label class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" name="admin" value="1" <?php
-                    if(isset($user)){
-                        if($user->ingroup('admin'))
-                        {echo "checked";}
-                    } ?>>
-                    <span class="form-check-label">Permission d'administrateur</span>
-                </label>
+                <?php if (!isset($user) || $user->id !== 1) : ?>
+                    <label class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" name="admin" value="1" <?php
+                        if (isset($user)) {
+                            if ($user->ingroup('admin')) {
+                                echo "checked";
+                            }
+                        } ?>>
+                        <span class="form-check-label">Permission d'administrateur</span>
+                    </label>
                 <?php endif; ?>
 
             </div>
         </div>
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header">Informations Joueur(s)</div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        AVATAR
+                        <?php if (isset($user)) : ?>
+                        <img src="<?= ($user->getImage()) ? $user->getImage()->getUrl() : base_url('assets/img/no-img.png'); ?>" alt="" >
+                        <?php endif; ?>
+                        <input type="file" name="image" title="name" class="form-control mt-3" placeholder="image">
                     </div>
                     <div class="col-md-6">
                         <div class="row">
@@ -81,7 +86,8 @@ if (isset($user)) {
                                         <i class="fa-solid fa-x fa-xs"></i>
                                         <i class="fa-solid fa-p fa-xs"></i>
                                     </span>
-                                    <input class="form-control" value="<?=isset($user) ? $user->getPlayer()->experience : "" ?>"
+                                    <input class="form-control"
+                                           value="<?= isset($user) ? $user->getPlayer()->experience : "" ?>"
                                            name="experience" placeholder="Experience" title="Experience">
                                 </div>
                             </div>
@@ -112,17 +118,33 @@ if (isset($user)) {
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-header">L'équipage</div>
+        </div>
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-2">
+            <?php if (isset($user) && count($user->getPlayer()->getHeroes()) > 0) : ?>
+                <?php foreach ($user->getPlayer()->getHeroes() as $hero) :?>
+            <div class="col">
+                    <?=view_cell('HeroCell', ['character' => $hero]);?>
+            </div>
+                <?php endforeach ?>
+            <?php else : ?>
+            <div class="col">
+                L'équipage est tristement vide
+            </div>
+            <?php endif; ?>
+        </div>
     </div>
     <div class="col-md-3">
         <div class="card h-100">
             <div class="card-body">
-                <?php if(isset ($user)) : ?>
+                <?php if (isset ($user)) : ?>
                     <div class="d-flex justify-content-between mb-1">
                         <div>
                             Créer le :
                         </div>
                         <div>
-                            <i class="fa-solid fa-clock me-1"></i> <?=format_date_fr($user->created_at); ?>
+                            <i class="fa-solid fa-clock me-1"></i> <?= format_date_fr($user->created_at); ?>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between mb-3">
@@ -130,15 +152,17 @@ if (isset($user)) {
                             Mise à jours le :
                         </div>
                         <div>
-                            <i class="fa-solid fa-clock me-1"></i> <?=format_date_fr($user->updated_at); ?>
+                            <i class="fa-solid fa-clock me-1"></i> <?= format_date_fr($user->updated_at); ?>
                         </div>
                     </div>
                 <?php endif; ?>
                 <div class="d-grid">
-                    <?php if(isset($user)) :
-                        echo form_hidden('id', (string) $user->id);
-                    endif;?>
-                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk me-2"></i><?= isset($user) ? 'Sauvegarder' : 'Créer' ?></button>
+                    <?php if (isset($user)) :
+                        echo form_hidden('id', (string)$user->id);
+                    endif; ?>
+                    <button type="submit" class="btn btn-primary btn-sm"><i
+                                class="fa-solid fa-floppy-disk me-2"></i><?= isset($user) ? 'Sauvegarder' : 'Créer' ?>
+                    </button>
                 </div>
             </div>
         </div>

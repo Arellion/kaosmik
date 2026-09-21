@@ -74,18 +74,22 @@ class CantinaService
     public function getOnGeneratedOffers(int $playerId, int $number = 3) : array
     {
         $offers = $this->cantinaModel->where('player_id', $playerId)->findAll();
-        if(!empty($offers)){
-            $hour = $offers[0]->created_at;
-            if($hour != null ){
-                $createdTime = Time::parse($hour);
-                $now = Time::now();
-                $diff = $createdTime->difference($now)->getHours();
-                if($diff < 12){
-                    return $offers;
-                }
+        if(!empty($offers) && $offers[0]->created_at != null){
+            $secondsRemaining = $this->getRemainingSeconds($offers[0]->created_at);
+            if($secondsRemaining > 0){
+                return [
+                    'cantinaHeroes' => $offers,
+                    'remaining_time' => $this->getRemainningTime($offers[0]->created_at),
+                    'remaining_seconds' => $secondsRemaining,
+                ];
             }
         }
-        return $this->generateOffers($playerId, $number);
+        $newOffers = $this->generateOffers($playerId, $number);
+        return [
+            'cantinaHeroes' => $newOffers,
+            'remaining_time' => '12:00:00',
+            'remaining_seconds' => 43200,
+        ];
     }
     public function recruit(int $playerId, int $heroCantinaId)
     {
@@ -127,5 +131,32 @@ class CantinaService
             return $this->heroModel->find($id);
         }
         return null;
+    }
+    public function getRemainningTime(string|Time $created_at)
+    {
+        //On utilise la fonction getRemainingSeconds pour obtenir les secondes restantes
+        $secondsRemaining = $this->getRemainingSeconds($created_at);
+        if($secondsRemaining <= 0){
+            return "00:00:00";
+        }
+        //On retourne les secondes converti en date au format souhaité (gmdate exclus les fuseau horaires et décalage)
+        return gmdate("H:i:s", $secondsRemaining);
+    }
+
+    public function getRemainingSeconds(string|Time $created_at) : int
+    {
+        //Si j'ai déjà un object Time je l'utilise sinon je le créer
+        $createdTime = ($created_at instanceof Time) ? $created_at : Time::parse($created_at);
+        //Création d'un object time de maintenant
+        $now = Time::now();
+        //Calcule de l'heure d'expiration
+        $expiration_time = $createdTime->addHours(12);
+        //Si l'heure est dépassé on renvoie 00:00:00
+        if($now->isAfter($expiration_time)){
+            return "0";
+        }
+        //Calcule du temp restant en secondes (Timestamp = Heure Unix= Seconde depuis 01/01/1970
+        return $expiration_time->getTimestamp() - $now->getTimestamp();
+
     }
 }

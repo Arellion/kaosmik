@@ -31,11 +31,14 @@
         <?php } ?>
     </div>
     <?php if ($context == 'cantina') { ?>
+            <?php if(auth()->user()->getplayer()->isFleetFull()) : ?>
+            <span class="badge text-bg-danger">Equipage complet</span>
+        <?php endif ?>
         <?= form_open('cantina/recruit/' . $character->id) ?>
         <div class="d-grid">
             <button type="submit"
-                    class="btn btn-kaosmik" <?= ($character->cost_credit > auth()->user()->getPlayer()->credits ? 'disabled' : '') ?>>
-                <i class="fa-solid fa-cent-sigt"></i> Recruter ( <?= $character->cost_credit ?> )
+                    class="btn btn-kaosmik" <?= ($character->cost_credit > auth()->user()->getPlayer()->credits || (auth()->user()->getplayer()->isFleetFull()) ? 'disabled' : '') ?>>
+                 Recruter ( <i class="fa-solid fa-cent-sign me-1 ms-1"></i><?= $character->cost_credit ?> )
             </button>
         </div>
         <?= form_close() ?>
@@ -44,7 +47,7 @@
     <?= form_open('equipage/sell/' . $character->id, ['class' => 'js-form-sell']); ?>
     <div class="d-grid">
         <button type="submit" class="btn btn-danger" data-hero-name="<?= $character->name ?>">
-            Licencier pour ( <i class="fa-solid fa-cent-sign"></i><?= (int) $character->cost_credit / 2 ?>)
+            Licencier pour ( <i class="fa-solid fa-cent-sign"></i> <?= (int) $character->cost_credit / 2 ?>)
         </button>
     </div>
     <?php

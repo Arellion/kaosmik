@@ -35,7 +35,7 @@
                     }
                 }).then((result) => {
                     if(result.isConfirmed){
-                        btn.submit();
+                        this.submit();
                     }
                 })
             })

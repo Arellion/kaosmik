@@ -55,6 +55,7 @@ class RarityLevelController extends BaseController
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
+        return $this->redirect('admin/rarity');
     }
 
     public function update()
