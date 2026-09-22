@@ -1,4 +1,8 @@
-<div class="card h-100 border border-4" style="border-color: <?= $character->getRarity()->color ?>!important;">
+<div class="card h-100 border border-4 js-hero-card" style="border-color: <?= $character->getRarity()->color ?>!important;"
+     data-id="<?= $character->id ?>" data-sell-price="<?= (int) $character->cost_credit /2 ?>">
+    <div class="position-absolute top-0 start-0 m-3 d-none js-bulk-checkbox-container" style="z-index: 10;">
+        <input type="checkbox" class="form-check-input js-hero-select" style="transform: scale(1.5); cursor: pointer;">
+    </div>
     <img class="card-img-top"
          src="<?= isset($character) && $character->getHeroModel()->getImage() ? $character->getHeroModel()->getImage()->getUrl() : base_url('assets/img/no-img.png'); ?>">
     <div class="card-body d-flex flex-column">
@@ -44,9 +48,9 @@
         <?= form_close() ?>
     <?php } ?>
     <?php if($context == 'crew') : ?>
-    <?= form_open('equipage/sell/' . $character->id, ['class' => 'js-form-sell']); ?>
+    <?= form_open('equipage/sell/' . $character->id, ['class' => 'js-single-form-sell']); ?>
     <div class="d-grid">
-        <button type="submit" class="btn btn-danger" data-hero-name="<?= $character->name ?>">
+        <button type="submit" class="btn btn-danger js-single-sell-form" data-hero-name="<?= $character->name ?>">
             Licencier pour ( <i class="fa-solid fa-cent-sign"></i> <?= (int) $character->cost_credit / 2 ?>)
         </button>
     </div>

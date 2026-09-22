@@ -25,6 +25,7 @@ $routes->group('', ['filter' => 'session'], function ($routes) {
     $routes->group('equipage', function ($routes) {
         $routes->get('/', 'CrewController::index');
         $routes->post('sell/(:num)', 'CrewController::sell/$1');
+        $routes->post('sell-bulk', 'CrewController::sellBulk');
     });
     //Route pour le profil
 });
