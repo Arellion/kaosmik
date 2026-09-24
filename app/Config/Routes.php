@@ -27,6 +27,12 @@ $routes->group('', ['filter' => 'session'], function ($routes) {
         $routes->post('sell/(:num)', 'CrewController::sell/$1');
         $routes->post('sell-bulk', 'CrewController::sellBulk');
     });
+    //Route pour les missions
+    $routes->group('mission', function ($routes) {
+        $routes->get('/', 'MissionController::index');
+        $routes->post('envoyer-l-equipage', 'MissionController::sendCrew');
+        $routes->get('details/(:num)', 'MissionController::details/$1');
+    });
     //Route pour le profil
 });
 

@@ -45,7 +45,6 @@ class Mission extends Entity
 
     public function getSpecialization(int $id): ?array
     {
-        //Avec Aide de l'ia sans le builder qu'elle m'a proposer
         $missionSpecialization = model('MissionSpecializationModel');
         if ($missionSpecialization == null) {
             return null;
