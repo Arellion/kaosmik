@@ -68,7 +68,8 @@ if (isset($user)) {
                 <div class="row">
                     <div class="col-md-6">
                         <?php if (isset($user)) : ?>
-                        <img src="<?= ($user->getImage()) ? $user->getImage()->getUrl() : base_url('assets/img/no-img.png'); ?>" alt="" >
+                            <img src="<?= ($user->getImage()) ? $user->getImage()->getUrl() : base_url('assets/img/no-img.png'); ?>"
+                                 alt="">
                         <?php endif; ?>
                         <input type="file" name="image" title="name" class="form-control mt-3" placeholder="image">
                     </div>
@@ -123,15 +124,15 @@ if (isset($user)) {
         </div>
         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-2">
             <?php if (isset($user) && count($user->getPlayer()->getHeroes()) > 0) : ?>
-                <?php foreach ($user->getPlayer()->getHeroes() as $hero) :?>
-            <div class="col">
-                    <?=view_cell('HeroCell', ['character' => $hero]);?>
-            </div>
+                <?php foreach ($user->getPlayer()->getHeroes() as $hero) : ?>
+                    <div class="col">
+                        <?= view_cell('HeroCell', ['character' => $hero]); ?>
+                    </div>
                 <?php endforeach ?>
             <?php else : ?>
-            <div class="col">
-                L'équipage est tristement vide
-            </div>
+                <div class="col">
+                    L'équipage est tristement vide
+                </div>
             <?php endif; ?>
         </div>
     </div>

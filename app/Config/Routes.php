@@ -68,4 +68,12 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'gr
         $routes->post('delete', 'SpecializationController::delete');
         $routes->post('update', 'SpecializationController::update');
     });
+    $routes->group('mission', function ($routes) {
+        $routes->get('/', 'MissionController::index');
+        $routes->get('new', 'MissionController::new');
+        $routes->get('edit/(:num)', 'MissionController::edit/$1');
+        $routes->post('create', 'MissionController::create');
+        $routes->post('delete', 'MissionController::delete');
+        $routes->post('update', 'MissionController::update');
+    });
 });
