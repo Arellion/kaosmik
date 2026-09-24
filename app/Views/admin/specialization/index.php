@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col">
-        <h1>Liste des specialization</h1>
+        <h1 class="page-title mb-3">Liste des specialization</h1>
     </div>
 </div>
 <div class="row">

@@ -28,5 +28,11 @@
     "url" : "/admin/specialization",
     "icon" : "<i class=\"fa-solid fa-shield-halved\"></i>",
     "class" : ""
+  },
+  "Mission" : {
+    "title" : "Mission",
+    "url" : "/admin/mission",
+    "icon" : "<i class=\"fa-solid fa-truck-ramp-box\"></i>",
+    "class" : ""
   }
 }
