@@ -18,7 +18,7 @@
         </button>
         <?= form_close() ?>
     </div>
-    <div class="row row-cols-6 g-3">
+    <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
         <?php
         foreach ($logged_user->getplayer()->getHeroes() as $hero) { ?>
             <div class="col mb-3">

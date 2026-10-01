@@ -77,7 +77,7 @@
                             <a href="<?= 'admin' ?>" class="dropdown-item">Administration</a>
                             <div class="dropdown-divider"></div>
                         <?php endif; ?>
-                        <a href="#" class="dropdown-item">Mon Compte</a>
+                        <a href="<?= base_url('/mon-profil')?>" class="dropdown-item">Mon Compte</a>
                         <a href="<?= base_url('logout') ?>" class="dropdown-item">Déconnexion</a>
                     </div>
                 <?php else : ?>

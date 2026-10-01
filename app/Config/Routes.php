@@ -32,8 +32,15 @@ $routes->group('', ['filter' => 'session'], function ($routes) {
         $routes->get('/', 'MissionController::index');
         $routes->post('envoyer-l-equipage', 'MissionController::sendCrew');
         $routes->get('details/(:num)', 'MissionController::details/$1');
+        $routes->post('send-crew', 'MissionController::validateMission');
+        $routes->get('resultats', 'MissionController::results');
     });
     //Route pour le profil
+    $routes->group('mon-profil', function ($routes) {
+        $routes->get('/', 'UserController::index');
+        $routes->get('mes-anciennes-missions', 'UserController::oldMissions');
+        $routes->post('update', 'UserController::update');
+    });
 });
 
 service('auth')->routes($routes);
@@ -78,8 +85,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'gr
         $routes->get('/', 'MissionController::index');
         $routes->get('new', 'MissionController::new');
         $routes->get('edit/(:num)', 'MissionController::edit/$1');
-        $routes->post('create', 'MissionController::create');
+        $routes->post('createUpdate', 'MissionController::createUpdate');
         $routes->post('delete', 'MissionController::delete');
-        $routes->post('update', 'MissionController::update');
     });
 });

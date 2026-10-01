@@ -43,19 +43,23 @@ class Mission extends Entity
         'experience_reward_max' => 'int',
     ];
 
-    public function getSpecialization(int $id): ?array
+    public function getSpecializations()
     {
-        $missionSpecialization = model('MissionSpecializationModel');
-        if ($missionSpecialization == null) {
-            return null;
-        }
+        $msm = model('MissionSpecializationModel');
+        $missionSpecializations =
+            $msm->join('specializations', 'specializations.id = mission_specializations.specialization_id')
+                ->where('mission_id', $this->attributes['id'])
+                ->findAll();
 
-        $result = $missionSpecialization->select('specializations.name')
-                                      ->join('specializations', 'specializations.id = mission_specializations.specialization_id')
-                                      ->where('mission_specializations.id', $id)->get()->getRowArray();
-        if ($result == null) {
-            $result[] = '';
-        }
-        return $result;
+        return $missionSpecializations;
+
+    }
+    public function getStaminaRequired()
+    {
+        return $this->attributes['stamina_cost_max'];
+    }
+    public function getPowerRequired()
+    {
+        return $this->attributes['power_required_max'];
     }
 }
