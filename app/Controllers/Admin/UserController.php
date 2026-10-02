@@ -8,78 +8,23 @@
  */
 namespace App\Controllers\Admin;
 
-/**
- * USE - IMPORTATION DES CLASSES
- * On importe les classes dont on a besoin dans ce fichier.
- * Sans ces lignes, PHP ne saurait pas où trouver "BaseController", "Player", etc.
- */
 use App\Controllers\BaseController;
 use App\Entities\Player;
 use App\Entities\User;
 use CodeIgniter\HTTP\ResponseInterface;
-
-/**
- * CONTRÔLEUR ADMIN - GESTION DES UTILISATEURS
- *
- * Un contrôleur reçoit les requêtes HTTP et orchestre la logique de l'application.
- * Il fait le lien entre :
- *   - les Models (accès à la base de données)
- *   - les Views (affichage HTML)
- *
- * Ce contrôleur hérite de BaseController, qui lui apporte des méthodes communes
- * comme render(), redirect(), success(), error(), etc.
- *
- * Convention CRUD : les actions typiques d'un contrôleur sont :
- *   index()  → lister les ressources
- *   new()    → afficher le formulaire de création
- *   create() → traiter la soumission du formulaire de création
- *   edit()   → afficher le formulaire de modification
- *   update() → traiter la soumission du formulaire de modification
- */
 class UserController extends BaseController
 {
-    /**
-     * PROPRIÉTÉS DE CLASSE
-     *
-     * $layout : indique quel template de mise en page utiliser pour les vues.
-     *           "back" correspond au layout de l'interface d'administration.
-     *
-     * $userModel et $playerModel : on stocke les modèles dans des propriétés
-     * pour pouvoir les réutiliser dans toutes les méthodes de la classe.
-     * Le mot-clé "private" signifie qu'ils ne sont accessibles que depuis
-     * l'intérieur de cette classe.
-     */
     protected $layout = "back";
     private $userModel;
     private $playerModel;
 
     protected $current_menu = 'user';
-    /**
-     * CONSTRUCTEUR
-     *
-     * Le constructeur est appelé automatiquement à chaque instanciation de la classe.
-     * C'est ici qu'on initialise les dépendances dont le contrôleur a besoin.
-     *
-     * model("UserModel") est un helper CodeIgniter qui charge et retourne
-     * une instance du modèle correspondant (équivalent à new UserModel()).
-     */
     public function __construct()
     {
         $this->userModel = model("UserModel");
         $this->playerModel = model("PlayerModel");
     }
 
-    /**
-     * INDEX - LISTE DES UTILISATEURS
-     *
-     * Cette méthode est appelée quand on accède à /admin/user.
-     * Elle récupère tous les utilisateurs en base de données et les envoie à la vue.
-     *
-     * helper('form') charge les fonctions utilitaires pour générer des formulaires HTML.
-     * findAll() exécute un SELECT * sur la table des utilisateurs.
-     * render() appelle la vue en lui passant les données sous forme de tableau associatif.
-     * La clé 'users' sera une variable $users dans la vue.
-     */
     public function index()
     {
         helper('form');
@@ -92,16 +37,6 @@ class UserController extends BaseController
         return $this->render('admin/user/index', ['users' => $users]);
     }
 
-    /**
-     * EDIT - FORMULAIRE DE MODIFICATION
-     *
-     * Affiche le formulaire pré-rempli pour modifier un utilisateur existant.
-     * L'argument $id correspond à l'identifiant de l'utilisateur dans l'URL
-     * (ex: /admin/user/edit/5 → $id = 5).
-     *
-     * find($id) exécute un SELECT WHERE id = $id et retourne une entité User
-     * ou null si aucun enregistrement n'est trouvé.
-     */
     public function edit($id = null)
     {
         helper('form');
@@ -113,31 +48,13 @@ class UserController extends BaseController
         return $this->render('admin/user/form', ['user' => $user]);
     }
 
-    /**
-     * NEW - FORMULAIRE DE CRÉATION
-     *
-     * Affiche un formulaire vide pour créer un nouvel utilisateur.
-     * Aucune donnée n'est passée à la vue, car c'est une création (pas de $user existant).
-     */
+
     public function new()
     {
         helper('form');
         return $this->render('admin/user/form');
     }
 
-    /**
-     * UPDATE - TRAITEMENT DE LA MODIFICATION
-     *
-     * Reçoit et traite les données du formulaire de modification (méthode POST).
-     * Cette méthode suit un pattern classique de validation → récupération → mise à jour.
-     *
-     * Étapes :
-     *   1. Récupération des données POST
-     *   2. Validation de l'identifiant
-     *   3. Récupération des entités en base
-     *   4. Normalisation des données
-     *   5. Sauvegarde et retour utilisateur
-     */
     public function update()
     {
         // getPost() récupère toutes les données envoyées via le formulaire (méthode HTTP POST)
@@ -172,9 +89,6 @@ class UserController extends BaseController
         }
 
         // NORMALISATION DU CHAMP "active" (checkbox HTML)
-        // Une checkbox HTML n'envoie rien quand elle est décochée.
-        // Si elle est cochée, elle envoie la valeur "on".
-        // On convertit ce comportement en 1 (actif) ou 0 (inactif) pour la BDD.
         if (isset($data['active']) && $data['active'] == 'on') {
             $data['active'] = 1;
         } else {
@@ -218,18 +132,6 @@ class UserController extends BaseController
         return $this->redirect('/admin/user/edit/' . $user_id);
     }
 
-    /**
-     * CREATE - TRAITEMENT DE LA CRÉATION
-     *
-     * Reçoit et traite les données du formulaire de création (méthode POST).
-     * La création est plus complexe que la modification car elle implique
-     * deux entités liées : User ET Player (relation one-to-one).
-     *
-     * Ordre des opérations important :
-     *   1. Créer le User en premier pour obtenir son ID auto-généré
-     *   2. Assigner cet ID comme clé étrangère du Player
-     *   3. Créer le Player
-     */
     public function create()
     {
         $data = $this->request->getPost();
