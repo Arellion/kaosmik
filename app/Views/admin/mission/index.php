@@ -39,11 +39,21 @@
                             <td><?= $mission->energy_reward_min . ' / ' . $mission->energy_reward_max ?></td>
                             <td><?= $mission->experience_reward_min . ' / ' . $mission->experience_reward_max ?></td>
                             <td>
-                            <?php foreach ($mission->getSpecialization($mission->id) as $spe) : ?>
-                                     <?= $spe ?>
-                                <?php endforeach;?>
+                                <?php foreach ($mission->getSpecializations as $spe) : ?>
+                                    <?= $spe ?>,
+                                <?php endforeach; ?>
                             </td>
-                            <td></td>
+                            <td class="d-flex">
+                                <a class="btn btn-warning btn-sm me-2"
+                                   href="<?= base_url('/admin/mission/edit/' . $mission->id) ?>"><i
+                                            class="fa-solid fa-pen"></i></a>
+                                <?= form_open('admin/mission/delete/') ?>
+                                <input type="hidden" value="<?= $mission->id ?>" name="id">
+                                <button class="btn btn-danger btn-sm"
+                                   href="<?= base_url('/admin/mission/delete/' . $mission->id) ?>"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                <?= form_close() ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

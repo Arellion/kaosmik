@@ -19,6 +19,7 @@ class MissionResolutionModel extends Model
         'success',
         'credits_gained',
         'energy_gained',
+        'experience_gained',
     ];
 
     protected bool $allowEmptyInserts = false;

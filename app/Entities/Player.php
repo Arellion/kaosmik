@@ -35,6 +35,7 @@ class Player extends Entity
     protected ?User $user = null;
 
     protected $heroes = array();
+    protected $mission_resolutions = array();
 
     public function getUser(): ?User
     {
@@ -98,5 +99,14 @@ class Player extends Entity
             $totalPower += $hero->power;
         }
         return $totalPower;
+    }
+    public function getMissionResolutions()
+    {
+        if (!empty($this->mission_resolutions)) {
+            return $this->mission_resolutions;
+        }
+        $missionResolutionModel = model('MissionResolutionModel');
+        $this->mission_resolutions = $missionResolutionModel->where('player_id', $this->attributes['id'])->orderBy('created_at', 'DESC')->findAll();
+        return $this->mission_resolutions;
     }
 }
