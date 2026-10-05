@@ -39,8 +39,8 @@
                             <td><?= $mission->energy_reward_min . ' / ' . $mission->energy_reward_max ?></td>
                             <td><?= $mission->experience_reward_min . ' / ' . $mission->experience_reward_max ?></td>
                             <td>
-                                <?php foreach ($mission->getSpecializations as $spe) : ?>
-                                    <?= $spe ?>,
+                                <?php foreach ($mission->getSpecializations() as $spe) : ?>
+                                    <span class="badge bg-kaosmik ms-1"><?= $spe['name'] ?></span>
                                 <?php endforeach; ?>
                             </td>
                             <td class="d-flex">

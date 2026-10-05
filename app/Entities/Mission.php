@@ -62,4 +62,8 @@ class Mission extends Entity
     {
         return $this->attributes['power_required_max'];
     }
+    public function getImage() {
+        $mediaModel = model('MediaModel');
+        return $mediaModel->getOneMedia('mission', $this->id);
+    }
 }
