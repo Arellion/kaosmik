@@ -41,6 +41,13 @@ $routes->group('', ['filter' => 'session'], function ($routes) {
         $routes->get('mes-anciennes-missions', 'UserController::oldMissions');
         $routes->post('update', 'UserController::update');
     });
+    //Route pour le chat
+    $routes->group('chat', function ($routes) {
+        $routes->get('/', 'ChatController::index');
+        $routes->get('new-messages', 'ChatController::newMessages');
+        $routes->get('(:any)', 'ChatController::conversation/$1');
+        $routes->post('send', 'ChatController::send');
+    });
 });
 
 service('auth')->routes($routes);
