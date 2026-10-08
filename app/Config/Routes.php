@@ -44,9 +44,9 @@ $routes->group('', ['filter' => 'session'], function ($routes) {
     //Route pour le chat
     $routes->group('chat', function ($routes) {
         $routes->get('/', 'ChatController::index');
+        $routes->get('new-messages', 'ChatController::newMessages');
         $routes->get('(:any)', 'ChatController::conversation/$1');
         $routes->post('send', 'ChatController::send');
-        $routes->get('last-messages', 'ChatController::lastMessages');
     });
 });
 

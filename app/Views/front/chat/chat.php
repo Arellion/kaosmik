@@ -8,7 +8,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <div class="card" style="min-height: 80vh">
+        <div class="card" style="height: 75vh">
             <div class="card-body scrollable">
                 <div class="chat">
                     <div class="chat-bubbles">
@@ -33,21 +33,25 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function (){
+    document.addEventListener('DOMContentLoaded', function() {
         const contentMessage = document.getElementById('content-message');
         const sendButton = document.getElementById('send-message');
         const receiver = sendButton.getAttribute('data-receiver');
-        const chatBubbles = document.querySelector('.chat-bubble');
-        const chatContainer = document.querySelector(('.card-body.scrollable'))
+        const chatBubbles = document.querySelector('.chat-bubbles');
+        const chatContainer = document.querySelector('.card-body.scrollable');
 
-        function scrollToButton(smooth = true) {
-            if (chatContainer) {
+        let lastMessageDate = "<?= !empty($messages) ? end($messages)->created_at : date('Y-m-d H:i:s') ?>";
+
+        function scrollToBottom(smooth = true) {
+            if(chatContainer) {
                 chatContainer.scrollTo({
                     top: chatContainer.scrollHeight,
                     behavior: smooth ? 'smooth' : 'instant'
                 });
             }
         }
+
+        scrollToBottom(false);
 
         function sendMessage() {
             const textMessage = contentMessage.value.trim();
@@ -56,40 +60,60 @@
             sendButton.disabled = true;
 
             const formData = new FormData();
-            formData.append('receiver_id', 'receiver');
-            formData.append('message', 'textMessage');
+            formData.append('receiver_id', receiver);
+            formData.append('message', textMessage);
 
-            fetch('/chat/send', {
+            fetch('<?= base_url('/chat/send')?>', {
                 method: 'POST',
                 body: formData,
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             }).then(response => {
-                if (!response.ok)throw new Error('Erreurde réseau')
+                if (!response.ok) throw new Error('Erreur de réseau');
                 return response.json();
             }).then(data => {
-                if(data.success) {
+                if (data.success) {
                     chatBubbles.insertAdjacentHTML('beforeend', data.html);
                     contentMessage.value = '';
-                }else {
-                    alert(data.error || 'Imposible d\'envoyer le message')
+                    scrollToBottom();
+                } else {
+                    alert(data.error || 'Impossible d\'envoyer le message');
                 }
             }).catch(error => {
-                console.error('Erreur', error);
-                alert('une erreur est survenue lors de l\'envoie du message')
+                console.error('Erreur: ', error);
+                alert('Une erreur est survenue lors de l\'envoi du message');
             }).finally( () => {
-                sendButton.disabled = false
+                sendButton.disabled = false;
             })
         }
 
-        sendButton.addEventListener('click', sendMessage)
 
-        contentMessage.addEventListener('keydown', function (e) {
-           if(e.key === 'Enter' && !e.shiftKey) {
-               e.preventDefault();
-               sendMessage();
-           }
+        sendButton.addEventListener('click', sendMessage);
+
+        contentMessage.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
         });
+
+        function fetchNewMessages() {
+            const url = `<?= base_url('/chat/new-messages');?>?receiver_id=${receiver}&last_date=${encodeURIComponent(lastMessageDate)}`;
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'}
+            }).then(res => res.json()
+            ).then(data => {
+                if(data.success && data.html !== '') {
+                    chatBubbles.insertAdjacentHTML('beforeend', data.html);
+                    lastMessageDate = data.latest_date;
+                    scrollToBottom(true);
+                }
+            }).catch(err => console.error('Erreur de récupération des méssage : ', err));
+        }
+
+        setInterval(fetchNewMessages, 1000);
     })
 </script>

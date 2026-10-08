@@ -11,8 +11,23 @@
         <div class="card">
             <div class="card-body">
                 <div class="list-group">
-                    <?php foreach ($users as $user) : ?>
-                        <a href="<?= base_url('chat/' . $user->username )?>" class="list-group-item list-group-item-action"><?= $user->username ?></a>
+                    <?php foreach ($users as $user) :
+                        ?>
+                        <a href="<?= base_url('chat/' . esc($user->username)); ?>">
+                            <div class="list-group-item list-group-item-action text-black">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <?= $user->username ?>
+                                    </div>
+                                    <div class="col-8">
+                                        <?= esc(mb_strimwidth($lastMessages[$user->id]->message, 0, 50)); ?>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="badge badge-kaosmik"><?= $lastMessages[$user->id]->created_at->format('h:i') ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     <?php endforeach; ?>
                 </div>
             </div>

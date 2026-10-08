@@ -55,10 +55,12 @@ class ChatMessageModel extends Model
                 ->where('id_sender', $id_receiver)
                 ->where('id_receiver', $id_sender)
             ->groupEnd()
-            ->orderBy('created_at', 'ASC')
+            //Distaciation de l'affichage de la requète, j'ai besoin des 10 dernier message
+            ->orderBy('created_at', 'DESC')
             ->paginate(10, 'default', $page);
         return [
-            'data' => $data,
+            //Distaciation de l'affichage de la requète, j'ai besoin que les 10 dernier message sois à la fin
+            'data' => array_reverse($data),
             'max_page' => $this->pager->getPageCount()
         ];
     }
