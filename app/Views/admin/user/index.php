@@ -30,7 +30,7 @@
                         <?php foreach ($users as $user) : ?>
                             <tr>
                                 <td><?= $user->id ?></td>
-                                <td><?= $user->username ?></td>
+                                <td><?= esc($user->username) ?></td>
                                 <td><?= $user->active ? "<i class='success fa-solid fa-check'>" : "<i class='text-danger fa-solid fa-x'>" ?></td>
                                 <td><?= implode(', ', $user->getGroups()) ?></td>
 

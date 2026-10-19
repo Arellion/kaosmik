@@ -104,10 +104,11 @@ class MissionController extends BaseController
             $this->missionSpecializationModel->where('mission_id', $id)->delete();
 
 
-                foreach ($specializationIds as $speId) {$batchData[] = [
+                foreach ($specializationIds as $speId) {
+                    $batchData[] = [
                     'mission_id'        => $id,
                     'specialization_id' => $speId,
-                ];
+                    ];
                 }
                 $this->missionSpecializationModel->insertBatch($batchData);
 

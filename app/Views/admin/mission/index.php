@@ -31,7 +31,7 @@
 
                         <tr>
                             <td><?= $mission->id ?></td>
-                            <td><?= $mission->title ?></td>
+                            <td><?= esc($mission->title) ?></td>
                             <td><?= $mission->level_required ?></td>
                             <td><?= $mission->stamina_cost_min . ' / ' . $mission->stamina_cost_max ?></td>
                             <td><?= $mission->team_size_max ?></td>

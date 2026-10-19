@@ -43,7 +43,7 @@ class RarityLevelController extends BaseController
             $id = $this->request->getVar('id');
             if ($id == 1) {
                 $this->error('Impossible de supprimer le niveaux commun');
-                $this->redirect('admin/rarity');
+                return $this->redirect('admin/rarity');
             }
 
             if ($this->RarityLevelsModel->delete($id)) {
@@ -64,10 +64,10 @@ class RarityLevelController extends BaseController
             $data = $this->request->getPost();
             if ($data['id'] == 1) {
                 $this->error('Impossible de modifié le niveaux commun');
-                $this->redirect('admin/rarity');
+                return $this->redirect('admin/rarity');
             }
             if ($this->RarityLevelsModel->save($data)) {
-                $this->success('Le niveau à bien été modifié');
+                return $this->success('Le niveau à bien été modifié');
             }
             return $this->redirect('admin/rarity');
         }catch (\Exception $e){

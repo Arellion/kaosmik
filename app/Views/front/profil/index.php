@@ -17,7 +17,7 @@
                     <div class="input-icon">
                         <span class="input-icon-addon"><i class="fa-solid fa-tag"></i></span>
                         <input type="text" name="username" class="form-control" placeholder="Nom" title="Nom"
-                               value="<?= $logged_user->username ?>" required>
+                               value="<?= esc($logged_user->username) ?>" required>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -33,7 +33,7 @@
                     <div class="input-icon">
                         <span class="input-icon-addon"><i class="fa-solid fa-tag"></i></span>
                         <input type="text" name="mail" class="form-control" placeholder="Adresse Mail"
-                               title="Adresse Mail" value="<?= $logged_user->email ?>" disabled>
+                               title="Adresse Mail" value="<?= esc($logged_user->email) ?>" disabled>
                     </div>
                 </div>
                 <input class="form-control mb-3" type="file" name="image" title="Modifié une image">

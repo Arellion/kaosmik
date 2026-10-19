@@ -13,7 +13,7 @@
          src="<?= isset($character) && $character->getHeroModel()->getImage() ? $character->getHeroModel()->getImage()->getUrl() : base_url('assets/img/no-img.png'); ?>">
     <div class="card-body d-flex flex-column">
         <span class="card-title mb-2"><?= $character->name ?></span>
-        <span class="card-subtitle text-body-secondary"><?= $character->getHeroModel()->name ?></span>
+        <span class="card-subtitle text-body-secondary"><?= esc($character->getHeroModel()->name) ?></span>
 
         <div class="card-text mt-auto mb-3">
             <div class="text-center fs-1">

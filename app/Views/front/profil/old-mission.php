@@ -23,7 +23,7 @@
                         <?php foreach ($logged_user->getPlayer()->getMissionResolutions() as $mr) : ?>
                     <tr>
                         <td><?= $mr->created_at ?></td>
-                        <td><?= $mr->getmission()->title ?></td>
+                        <td><?= esc($mr->getmission()->title) ?></td>
                         <td><?= $mr->credits_gained ?></td>
                         <td><?= $mr->energy_gained ?></td>
                         <td><?= $mr->experience_gained ?></td>

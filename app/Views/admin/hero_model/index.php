@@ -31,8 +31,8 @@
                     <?php foreach ($hero_models as $hm) : ?>
                         <tr>
                             <td><?= $hm->id ?></td>
-                            <td><?= $hm->name ?></td>
-                            <td><?= $hm->getSpecialization()['name'] ?></td>
+                            <td><?= esc($hm->name) ?></td>
+                            <td><?= esc($hm->getSpecialization()['name']) ?></td>
                             <td><?= $hm->power_min . ' / ' . $hm->power_max ?></td>
                             <td><?= $hm->cost_credits_min . ' / ' . $hm->cost_credits_max ?></td>
                             <td><?= $hm->level_required ?></td>

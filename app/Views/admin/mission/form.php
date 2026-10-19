@@ -5,7 +5,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <?= form_open('admin/mission/createUpdate');
+        <?= form_open_multipart('admin/mission/createUpdate');
         if(isset($mission)) : ?>
         <input type="hidden" name="id" value="<?= $mission->id ?>">
         <?php endif; ?>
@@ -182,12 +182,14 @@
             <?php foreach ($specializations as $spe) : ?>
             <div class="me-6">
                 <label for="<?= $spe['name'] ?>"
-                       class="form-check form-switch"><?= $spe['name'] ?>
+                       class="form-check form-switch"><?= esc($spe['name']) ?>
                     <input type="checkbox" name="specialization[]" class="form-check-input" value="<?= $spe['id'] ?>"
-                            <?php foreach ($specSelected as $spSelect) :
+                            <?php if (isset($specSelected)) :
+                            foreach ($specSelected as $spSelect) :
                             if ($spSelect['specialization_id'] == $spe['id']) : ?> checked
                             <?php endif;
                             endforeach;
+                            endif
                             ?>
                     >
                 </label>

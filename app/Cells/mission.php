@@ -28,7 +28,7 @@
                         if(count($mission->getSpecializations()) > 0) :
                             foreach($mission->getSpecializations() as $specialization) : ?>
                                 <span class="badge bg-kaosmik ms-1 js-mission-spec" data-spec-id="<?= $specialization['id'] ?>" data-name="<?= $specialization['name'] ?>">
-                                    <?= $specialization['name'] ?>
+                                    <?= esc($specialization['name']) ?>
                                 </span>
                             <?php endforeach; ?>
                         <?php else : ?>

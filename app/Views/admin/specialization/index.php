@@ -41,8 +41,8 @@
                     <?php foreach ($specializations as $specialization): ?>
                         <tr>
                             <td><?= $specialization['id'] ?></td>
-                            <td><?= $specialization['name'] ?></td>
-                            <td><?= $specialization['description'] ?></td>
+                            <td><?= esc($specialization['name']) ?></td>
+                            <td><?= esc($specialization['description']) ?></td>
                             <td class="d-flex">
                                 <span
                                         class="ms-2 btn btn-sm btn-warning openEditModal me-3"

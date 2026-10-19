@@ -1,7 +1,7 @@
 <div class="row align-items-center mb-3">
     <div class="col">
         <div class="page-title">
-            <?= isset($hm) ? "Modification d'un nouveau modèle " . $hm->name : "Création d'un nouveau modèle" ?>
+            <?= isset($hm) ? "Modification d'un nouveau modèle " . esc($hm->name) : "Création d'un nouveau modèle" ?>
         </div>
     </div>
 </div>
@@ -20,7 +20,7 @@
                         <i class="fa-solid fa-tag"></i>
                     </span>
                         <input type="text" name="name" class="form-control" placeholder="Nom" title="Nom"
-                               value="<?= isset($hm) ? $hm->name : '' ?>" required>
+                               value="<?= isset($hm) ? esc($hm->name) : '' ?>" required>
                     </div>
                 </div>
                 <?php if (isset($hm)): ?>
@@ -32,14 +32,14 @@
                 <div class="mb-3">
                     <label class="form-label">Déscription</label>
                     <textarea class="form-control" name="description" title="description"
-                              placeholder="déscription"><?= isset($hm) ? $hm->description : '' ?></textarea>
+                              placeholder="déscription"><?= isset($hm) ? esc($hm->description) : '' ?></textarea>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Selectionner la spécialization</label>
                     <select name="specialization_id" class="form-select" >
                         <?php foreach ($specializations as $spe): ?>
-                            <option <?=(isset($hm) && $spe['id'] == $hm->specialization_id) ? 'selected' : '' ?> value="<?= $spe['id'] ?>"><?= $spe['name'] ?></option>
+                            <option <?=(isset($hm) && $spe['id'] == $hm->specialization_id) ? 'selected' : '' ?> value="<?= $spe['id'] ?>"><?= esc($spe['name']) ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
