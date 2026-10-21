@@ -74,22 +74,23 @@ class MissionController extends BaseController
         $data = $this->request->getPost();
         $image = $this->request->getFile('image');
 
-        $specializationIds = $data['specialization'] ?? [];
-        unset($data['specialization']);
+
+
+
 
         $mission = new Mission();
         $mission->fill($data);
         $saveOk = $this->missionModel->save($mission);
 
-        if($image->isValid() && !$image->hasMoved()){
+        if ($image->isValid() && !$image->hasMoved()) {
             helper('media');
             $result = upload_single_image($image, 'mission', $data['title'], [
                 'entity_type' => 'mission',
                 'entity_id' => $data['id'],
             ]);
-            if($result->status == 'error'){
+            if ($result->status == 'error') {
                 $this->error($result['message']);
-            }else{
+            } else {
                 $this->success('Image téléversé');
             }
         }
@@ -103,14 +104,19 @@ class MissionController extends BaseController
             }
             $this->missionSpecializationModel->where('mission_id', $id)->delete();
 
+            if (isset($data['specialization'])) {
 
-                foreach ($specializationIds as $speId) {$batchData[] = [
-                    'mission_id'        => $id,
-                    'specialization_id' => $speId,
-                ];
+                $specializationIds = $data['specialization'] ?? [];
+                unset($data['specialization']);
+
+                foreach ($specializationIds as $speId) {
+                    $batchData[] = [
+                        'mission_id' => $id,
+                        'specialization_id' => $speId,
+                    ];
                 }
-                $this->missionSpecializationModel->insertBatch($batchData);
-
+                $this->missionSpecializationModel->insertBatch(array_values($batchData));
+            }
             return $this->redirect('admin/mission/edit/' . $id);
         }
         $this->error('Une erreur est survenue');

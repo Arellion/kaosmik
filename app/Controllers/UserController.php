@@ -28,16 +28,22 @@ class UserController extends BaseController
         $image = $this->request->getFile('image');
         $user_logged = auth()->user();
 
-        //Vérification des données envoyées
-        if (isset($id)) {
-            $this->error('Aucune id envoyé');
-            return $this->redirect('mon-profil');
-        }
-        if ($user_logged->id != $data['id']) {
-            $this->error('Cette id ne vous a pas été attribué');
-            return $this->redirect('mon-profil');
-        }
 
+        $hasNewImage = ($image !== null && $image->isValid() && !$image->hasMoved());
+
+        //gestion de l'image
+        if ($hasNewImage) {
+            helper('media');
+            $result = upload_single_image($image, 'users', $data['username'], [
+                'entity_type' => 'users',
+                'entity_id' => $user_logged->id,
+            ]);
+            if ($result->status == 'error') {
+                $this->error($result['message']);
+            } else {
+                $this->success('Image téléversé');
+            }
+        }
         //nettoyage des données
 
         if ($data['username'] == $user_logged->username) {
@@ -48,25 +54,12 @@ class UserController extends BaseController
         }
 
         //Si aucune nouvelle donnée on renvoie
-        $hasNewImage = ($image !== null && $image->isValid() && !$image->hasMoved());
         if (!$hasNewImage && empty($data['password']) && empty($data['username'])) {
             $this->warning('Aucune modification envoyé');
             return $this->redirect('mon-profil');
         }
 
-        //gestion de l'image
-        if ($hasNewImage) {
-            helper('media');
-            $result = upload_single_image($image, 'users', $data['username'], [
-                'entity_type' => 'users',
-                'entity_id' => $id,
-            ]);
-            if ($result->status == 'error') {
-                $this->error($result['message']);
-            } else {
-                $this->success('Image téléversé');
-            }
-        }
+
 
         //Récupération de l'entité
         $this->userModel = model("UserModel");

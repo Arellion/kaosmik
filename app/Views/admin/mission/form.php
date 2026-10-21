@@ -5,7 +5,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <?= form_open('admin/mission/createUpdate');
+        <?= form_open_multipart('admin/mission/createUpdate');
         if(isset($mission)) : ?>
         <input type="hidden" name="id" value="<?= $mission->id ?>">
         <?php endif; ?>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="mb-3 d-flex">
                     <img class="avatar border border-kaosmik me-3" src="<?= (isset($mission) && $mission->getImage()) ? $mission->getImage()->getUrl() : base_url('assets/img/no-img.png') ?>">
-                    <input type="file" name="image" class="form-control" placeholder="Image" title="Image">
+                    <input class="form-control mb-3" type="file" name="image" title="Ajouter/Modifié une image">
                 </div>
             </div>
         </div>

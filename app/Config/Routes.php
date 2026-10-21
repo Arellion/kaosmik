@@ -88,4 +88,11 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'gr
         $routes->post('createUpdate', 'MissionController::createUpdate');
         $routes->post('delete', 'MissionController::delete');
     });
+    $routes->group('Classe-de-vaisseau', function ($routes) {
+        $routes->get('/', 'ShipClassController::index');
+        $routes->get('new', 'ShipClassController::new');
+        $routes->get('edit/(:num)', 'ShipClassController::edit/$1');
+        $routes->post('createUpdate', 'ShipClassController::createUpdate');
+        $routes->post('delete', 'ShipClassController::delete');
+    });
 });

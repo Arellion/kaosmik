@@ -36,7 +36,7 @@
                                title="Adresse Mail" value="<?= $logged_user->email ?>" disabled>
                     </div>
                 </div>
-                <input class="form-control mb-3" type="file" name="image" title="Modifié une image">
+                <input class="form-control mb-3" type="file" name="image" title="Ajouter/Modifié une image">
                 <div class="text-end">
                     <input type="hidden" name="id" value="<?= $logged_user->id ?>">
                     <button type="submit" class="btn btn-primary">Enregistrer</button>

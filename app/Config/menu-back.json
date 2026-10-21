@@ -34,5 +34,11 @@
     "url" : "/admin/mission",
     "icon" : "<i class=\"fa-solid fa-truck-ramp-box\"></i>",
     "class" : ""
+  },
+  "Classe_de_vaisseau" : {
+    "title" : "Classe de vaisseau",
+    "url" : "/admin/Classe-de-vaisseau",
+    "icon" : "<i class=\"fa-solid fa-truck-ramp-box\"></i>",
+    "class" : ""
   }
 }
