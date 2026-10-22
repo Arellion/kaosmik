@@ -1,4 +1,5 @@
-name: tests.yml
+name: Tests Kaosmik
+
 on:
   push:
     branches: [ main, test ]
@@ -29,3 +30,44 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=10
+
+      steps:
+        # 1 Télécharger le code
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        # 2 Installer PHP (extensions requises par CodeIgniter 4 et le driver MySQLi)
+        - name: Setup PHP ${{ matrix.php-version }}
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ matrix.php-version }}
+            extensions: intl, mbstring, mysqli
+            coverage: none
+
+        # 3 Cache des téléchargements Composer
+        - name: Cache Composer downloads
+          uses: actions/cache@v4
+          with:
+            path: ~/.cache/composer
+            key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+            restore-keys: ${{ runner.os }}-composer-
+
+        # 4 Installer les dépendances (garder les dépendances de dev : Faker, PHPUnit)
+        - name: Install dependencies
+          run: composer install --prefer-dist --no-progress --no-interaction
+
+        # 5 Chercher les vulnérabilités connues des dépendances
+        - name: Composer audit
+          run: composer audit
+
+        # 6 Lancer les tests (la base de test est configurée dans phpunit.dist.xml)
+        - name: Run PHPUnit
+          run: vendor/bin/phpunit --no-coverage --colors=always
+
+        # 7 Conserver les rapports, même si les tests échouent
+        - name: Upload test reports
+          if: always()
+          uses: actions/upload-artifact@v4
+          with:
+            name: phpunit-logs-php${{ matrix.php-version }}
+            path: build/logs/
