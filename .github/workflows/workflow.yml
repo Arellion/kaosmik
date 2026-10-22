@@ -1,7 +1,8 @@
 name: workflow.yml
 on:
   push:
-    branches: [ main, test ]
+    branches:
+    - main
 
 jobs:
   test:
