@@ -61,7 +61,7 @@ class CreateHeroesTable extends Migration
             ],
             'last_stamina_update' => [
                 'type' => 'DATETIME',
-                'null' => false,
+                'null' => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
