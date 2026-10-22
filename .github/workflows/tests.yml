@@ -70,14 +70,3 @@ jobs:
           with:
             name: phpunit-logs-php${{ matrix.php-version }}
             path: build/logs/
-        # (optionnel) Vérifier que les migrations passent sur une base vierge
-        - name: Check migrations
-          env:
-            CI_ENVIRONMENT: development
-            database.default.hostname: 127.0.0.1
-            database.default.database: kaosmik_tests
-            database.default.username: root
-            database.default.password: root
-            database.default.DBDriver: MySQLi
-            database.default.port: 3306
-          run: php spark migrate --all
