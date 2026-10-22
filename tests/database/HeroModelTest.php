@@ -213,4 +213,17 @@ final class HeroModelTest extends CIUnitTestCase
         $this->assertNotNull($hero->created_at);
         $this->assertNotNull($hero->updated_at);
     }
+
+    public function testUpdatedAtIsModifiedOnUpdate()
+    {
+        $hero     = $this->createHero($this->player);
+        $original = $hero->updated_at->toDateTimeString();
+
+        sleep(1);
+        $this->heroModel->update($hero->id, ['power' => 50]);
+
+        $updated = $this->heroModel->find($hero->id)->updated_at->toDateTimeString();
+        $this->assertNotEquals($original, $updated);
+    }
+
 }
