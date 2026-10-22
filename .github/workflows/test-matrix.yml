@@ -1,0 +1,13 @@
+name: test-matrix.yml
+on: [push]
+
+jobs:
+  test-php-82:
+    uses: ./.github/workflows/reusable-tests.yml
+    with:
+      php-version: '8.2'
+
+  test-php-84:
+    uses: ./.github/workflows/reusable-tests.yml
+    with:
+      php-version: '8.4'
