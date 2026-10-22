@@ -1,10 +1,9 @@
-name: Tests Kaosmik
+name: tests.yml
 
 on:
   push:
-    branches: [ main, test ]
-  pull_request:
-    branches: [ main ]
+    branches:
+    - main
 
 jobs:
   tests:
