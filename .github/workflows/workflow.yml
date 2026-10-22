@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mariadb:10.11
+        image: mariadb:latest
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: kaosmik_tests
@@ -50,5 +50,5 @@ jobs:
           done
           echo "MySQL is ready!"
       # ETAPE 6 : EXECUTER LES TESTS
-      - name : Run PHPUnit tests
+      - name : Run PHPUnit
         run: vendor/bin/phpunit --colors=always
