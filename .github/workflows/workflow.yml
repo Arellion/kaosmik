@@ -1,7 +1,7 @@
 name: workflow.yml
 on:
   push:
-    branches: [ main, test ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -14,7 +14,7 @@ jobs:
         image: mariadb:10.11
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: ins3gram_tests
+          MYSQL_DATABASE: kaosmik_tests
         ports:
           - 3306:3306
         options: >-
