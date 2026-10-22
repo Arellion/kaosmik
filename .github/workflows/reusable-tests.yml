@@ -1,0 +1,20 @@
+name: reusable-tests.yml
+on:
+  workflow_call:
+    inputs:
+      php-version:
+        required: true
+        type: string
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP ${{ inputs.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php-version }}
+          extensions: intl, mbstring, mysqli
+      - run: composer install
+      - run: vendor/bin/phpunit
