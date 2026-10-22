@@ -50,5 +50,5 @@ jobs:
           done
           echo "MySQL is ready!"
       # ETAPE 6 : EXECUTER LES TESTS
-      - name : Run PHPUnit
+      - name : Run PHPUnit tests
         run: vendor/bin/phpunit --colors=always
