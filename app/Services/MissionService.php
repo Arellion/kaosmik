@@ -23,15 +23,15 @@ class MissionService
     {
         $mission = $this->missionModel->find($missionId);
         if(!$mission) {
-            throw new Exception("Mission introuvable");
+            throw new Exception("Mission introuvable.");
         }
         if(empty($heroesIds)) {
-            throw new Exception("Aucune héro sélectionné");
+            throw new Exception("Aucun héros selectionné.");
         }
         $heroes = $this->heroModel->where('player_id', $player->id)->whereIn('id', $heroesIds)->findAll();
 
         if(count($heroes) !== count($heroesIds)) {
-            throw new Exception('Un ou plusieurs héro ne sont pas à vous.');
+            throw new Exception('Un ou plusieurs mercenaires ne sont pas à vous.');
         }
 
         $this->validateSquad($mission, $heroes);
@@ -50,7 +50,7 @@ class MissionService
         $staminaRequired = (int) $mission->getStaminaRequired();
         foreach ($heroes as $hero) {
             if((int) $hero->stamina_current < $staminaRequired ) {
-                throw new Exception("Le héro {$hero->name} n'a pas suffisamment d'endurance");
+                throw new Exception("Le héros {$hero->name} n'a pas suffisamment d'endurance.");
             }
 
             $totalPower += (int) $hero->power;

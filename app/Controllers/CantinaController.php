@@ -50,7 +50,8 @@ class CantinaController extends BaseController
     public function recruit($id_cantina_hero = null)
     {
         $cantina = service('cantina');
-        $cantina->recruit(auth()->user()->getPlayer()->id, $id_cantina_hero);
+        $cantina->recruit($id_cantina_hero);
         return $this->redirect('/cantina');
     }
 }
+

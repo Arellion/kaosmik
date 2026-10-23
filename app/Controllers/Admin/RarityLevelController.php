@@ -66,7 +66,8 @@ class RarityLevelController extends BaseController
                 $this->error('Impossible de modifié le niveaux commun');
                 $this->redirect('admin/rarity');
             }
-            if ($this->RarityLevelsModel->save($data)) {
+            if ($data['id'] != 1 ) {
+                $this->RarityLevelsModel->save($data);
                 $this->success('Le niveau à bien été modifié');
             }
             return $this->redirect('admin/rarity');

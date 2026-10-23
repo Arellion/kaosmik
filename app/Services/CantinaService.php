@@ -91,7 +91,7 @@ class CantinaService
             'remaining_seconds' => 43200,
         ];
     }
-    public function recruit(int $playerId, int $heroCantinaId)
+    public function recruit(int $heroCantinaId)
     {
         //Recherche du hero de la cantina
         $cantinaHero = $this->cantinaModel->find($heroCantinaId);
@@ -100,7 +100,7 @@ class CantinaService
             return null;
         }
         $player_id = $cantinaHero->player_id;
-        $player = $this->playerModel->find($playerId);
+        $player = $this->playerModel->find($player_id);
 
         //Verifivation de si on a encore de la place dans l'équipe
         if ($player->isFleetFull() == true){

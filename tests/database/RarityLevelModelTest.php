@@ -96,4 +96,12 @@ final class RarityLevelModelTest extends CIUnitTestCase
         $this->assertInstanceOf(RarityLevel::class, $rarity);
     }
 
+    public function testCannotUpdateDefaultRarity()
+    {
+        $this->expectException(\Exception::class);
+
+        $this->rarityModel->update(1, ['color' => '#000000']);
+    }
+
+
 }
