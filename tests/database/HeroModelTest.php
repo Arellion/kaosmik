@@ -11,6 +11,10 @@ use CodeIgniter\I18n\Time;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use Tests\Support\Traits\CreatesPlayers;
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('database')]
+#[Group('slow')]
 
 final class HeroModelTest extends CIUnitTestCase
 {
@@ -249,8 +253,5 @@ final class HeroModelTest extends CIUnitTestCase
 
         $this->assertSame(100, $found->stamina_current);
     }
-
-
-
 
 }
