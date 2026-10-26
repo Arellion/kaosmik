@@ -86,5 +86,4 @@ final class CrewControllerTest extends CIUnitTestCase
         // 1000 + 50 + 30
         $this->seeInDatabase('players', ['id' => $me->id, 'credits' => 1080]);
     }
-
 }

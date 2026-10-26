@@ -20,10 +20,12 @@
                                         <?= $user->username ?>
                                     </div>
                                     <div class="col-8">
-                                        <?= esc(mb_strimwidth($lastMessages[$user->id]->message, 0, 50)); ?>
+                                        <?php if (empty($lastMessages)) :  echo esc(mb_strimwidth($lastMessages[$user->id]->message, 0, 50));
+                                        endif;
+                                        ?>
                                     </div>
                                     <div class="col-1">
-                                        <span class="badge badge-kaosmik"><?= $lastMessages[$user->id]->created_at->format('h:i') ?></span>
+                                        <span class="badge badge-kaosmik"><?= empty($lastMessages) ? $lastMessages[$user->id]->created_at->format('h:i') : "" ?></span>
                                     </div>
                                 </div>
                             </div>

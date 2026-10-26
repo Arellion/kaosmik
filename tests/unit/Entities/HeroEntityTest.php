@@ -5,6 +5,10 @@ namespace Tests\Unit\Entities;
 use App\Entities\Hero;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\Test\CIUnitTestCase;
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('unit')]
+#[Group('fast')]
 
 final class HeroEntityTest extends CIUnitTestCase
 {

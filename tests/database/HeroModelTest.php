@@ -11,6 +11,10 @@ use CodeIgniter\I18n\Time;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use Tests\Support\Traits\CreatesPlayers;
+use PHPUnit\Framework\Attributes\Group;
+
+#[Group('database')]
+#[Group('slow')]
 
 final class HeroModelTest extends CIUnitTestCase
 {
@@ -213,4 +217,41 @@ final class HeroModelTest extends CIUnitTestCase
         $this->assertNotNull($hero->created_at);
         $this->assertNotNull($hero->updated_at);
     }
+
+    public function testUpdatedAtIsModifiedOnUpdate()
+    {
+        $hero     = $this->createHero($this->player);
+        $original = $hero->updated_at->toDateTimeString();
+
+        sleep(1);
+        $this->heroModel->update($hero->id, ['power' => 50]);
+
+        $updated = $this->heroModel->find($hero->id)->updated_at->toDateTimeString();
+        $this->assertNotEquals($original, $updated);
+    }
+
+    public function testFindRegeneratesStaminaAndSavesIt()
+    {
+        $hero = $this->createHero($this->player, [
+            'stamina_current'     => 50,
+            'stamina_max'         => 100,
+            'last_stamina_update' => Time::now()->subMinutes(10)->subSeconds(5)->toDateTimeString(),
+        ]);
+
+        // Le simple fait de lire le héros déclenche la régénération
+        $found = $this->heroModel->find($hero->id);
+
+        $this->assertSame(55, $found->stamina_current);
+        $this->seeInDatabase('heroes', ['id' => $hero->id, 'stamina_current' => 55]);
+    }
+
+    public function testFindDoesNotTouchStaminaOfFullHero()
+    {
+        $hero = $this->createHero($this->player, ['stamina_current' => 100, 'stamina_max' => 100]);
+
+        $found = $this->heroModel->find($hero->id);
+
+        $this->assertSame(100, $found->stamina_current);
+    }
+
 }

@@ -38,7 +38,7 @@ class RarityLevelModel extends Model
     protected $allowCallbacks = true;
     protected $beforeInsert   = ['convertAppearanceRate'];
     protected $afterInsert    = ['calculateCommonAppearanceRate'];
-    protected $beforeUpdate   = ['convertAppearanceRate'];
+    protected $beforeUpdate   = ['convertAppearanceRate', 'protectDefaultRarity'];
     protected $afterUpdate    = ['calculateCommonAppearanceRate'];
     protected $beforeFind     = [];
     protected $afterFind      = [];
@@ -59,7 +59,7 @@ class RarityLevelModel extends Model
     protected function protectDefaultRarity(array $data) {
         $id = $data['id'][0] ?? null;
         if($id == 1) {
-            throw new \Exception('Interdiction de modifier ou de supprimer la rareté par défaut (commun)');
+            throw new \Exception('Interdiction de modifier ou supprimer la rareté par défaut (commun)');
         }
         return $data;
     }
