@@ -25,23 +25,15 @@ class CreatePlayerBuildingsTable extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
             ],
+            'construction_status' => [
+                'type' => 'ENUM',
+                'constraint' => ['Pas encore construit', 'En construction', 'construit']
+            ],
             'level' => [
                 'type' => 'INT',
-                'constraint' => 11,
+                'constraint' => '11',
                 'unsigned' => true,
                 'default' => 1,
-            ],
-            'cost_credits' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-                'default' => 0,
-            ],
-            'cost_energy' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-                'default' => 0,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
