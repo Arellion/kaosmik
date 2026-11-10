@@ -12,7 +12,7 @@ class PlayerBuildingModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['player_id', 'building_id', 'level', 'cost_credits', 'cost_energy'];
+    protected $allowedFields    = ['player_id', 'building_id', 'construction_status', 'level'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -25,7 +25,6 @@ class PlayerBuildingModel extends Model
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
 
     // Validation
     protected $validationRules      = [];

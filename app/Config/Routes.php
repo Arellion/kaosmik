@@ -95,4 +95,11 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin', 'filter' => 'gr
         $routes->post('createUpdate', 'MissionController::createUpdate');
         $routes->post('delete', 'MissionController::delete');
     });
+    $routes->group('building', function ($routes) {
+        $routes->get('/', 'BuildingController::index');
+        $routes->get('new', 'BuildingController::new');
+        $routes->get('edit/(:num)', 'BuildingController::edit/$1');
+        $routes->post('createUpdate', 'BuildingController::createUpdate');
+        $routes->post('delete', 'BuildingController::delete');
+    });
 });

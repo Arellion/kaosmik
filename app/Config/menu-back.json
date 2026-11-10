@@ -34,5 +34,11 @@
     "url" : "/admin/mission",
     "icon" : "<i class=\"fa-solid fa-truck-ramp-box\"></i>",
     "class" : ""
+  },
+  "building" : {
+    "title" : "Batiment",
+    "url" : "/admin/mission",
+    "icon" : "<i class=\"fa-solid fa-truck-ramp-box\"></i>",
+    "class" : ""
   }
 }
